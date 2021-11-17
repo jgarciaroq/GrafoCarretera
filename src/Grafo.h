@@ -107,7 +107,7 @@ public:
 	 * @return true 
 	 * @return false 
 	 */
-	bool pertenece(string vertice, int posicion);
+	bool pertenece(string vertice, int &posicion);
 	
 	
 	//RecuperaCamino

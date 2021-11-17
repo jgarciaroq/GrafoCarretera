@@ -19,7 +19,7 @@ Grafo::Grafo(){
 	inicializarMatriz();
 }
 
-bool Grafo::pertenece(string vertice, int posicion){
+bool Grafo::pertenece(string vertice, int &posicion){
 	bool encontrado = false;
 	int indice = 0;
 	

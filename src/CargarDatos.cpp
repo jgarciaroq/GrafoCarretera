@@ -2,7 +2,6 @@
 
 CargarDatos::CargarDatos(Grafo* g){
     this -> nombreFichero = "../datos.in";
-    this -> entradaDatos.open(nombreFichero);
     leerFichero(g);
 }
 
@@ -11,8 +10,14 @@ bool CargarDatos::leerFichero(Grafo* g){
     int numNodos, numAristas;
     string linea, ciudadInicio, ciudadFin;
 
+    entradaDatos.open(nombreFichero);
+    cout << "----------";
+
     if(entradaDatos.is_open()){
-        
+        getline(entradaDatos, linea);
+        cout << linea;
+
+        /*
         //Leer numero de nodos.
         getline(entradaDatos, linea);
         numNodos = stoi(linea);
@@ -34,12 +39,16 @@ bool CargarDatos::leerFichero(Grafo* g){
             getline(entradaDatos, linea);
 
             g -> insertarArcos(ciudadInicio, ciudadFin, stof(linea));
-        }
+        }*/
+
+        entradaDatos.close();
+        leido = true;
+    } else{
+        cout << "Error";
     }
 
     return leido;
 }
 
 CargarDatos::~CargarDatos(){
-    this -> entradaDatos.close();
 }

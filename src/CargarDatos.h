@@ -2,18 +2,22 @@
 #define CARGARDATOS_H_
 
 #include <fstream>
+#include <ios>
 #include "Grafo.h"
 
 using namespace std;
 
 class CargarDatos{
 
-    ifstream entradaDatos;
     string nombreFichero;
+    ifstream entradaDatos;
+
+public:
     bool leerFichero(Grafo* g);
     
 
 public:
+    CargarDatos();
     CargarDatos(Grafo* g);
     ~CargarDatos();
 };

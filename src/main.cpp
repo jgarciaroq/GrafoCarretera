@@ -16,11 +16,11 @@ int main() {
 
 	Grafo* g = new Grafo();
 	CargarDatos* carga = new CargarDatos(g);
+	//delete carga;
+	//g -> verVertices();
 
 	delete carga;
-
-	g -> verVertices();
-
+	delete g;
 
 	return 0;
 }
