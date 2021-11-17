@@ -6,23 +6,21 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
-#include <iostream>
 #include "Grafo.h"
+#include "CargarDatos.h"
+#include <iostream>
+
 using namespace std;
 
 int main() {
-	Grafo g;
 
-	ifstream flujo_lectura;
-	flujo_lectura.open("datos.in");
+	Grafo* g = new Grafo();
+	CargarDatos* carga = new CargarDatos(g);
 
-	if (flujo_lectura.is_open()){
-		g.CargarDatos(flujo_lectura);
-		cout << "Entra";
-		flujo_lectura.close();
-	} else cout << "Error";
+	delete carga;
 
-	g.verVertices();
+	g -> verVertices();
+
 
 	return 0;
 }

@@ -1,8 +1,9 @@
 #include "CargarDatos.h"
 
 CargarDatos::CargarDatos(Grafo* g){
-    this -> nombreFichero = "datos.in";
+    this -> nombreFichero = "../datos.in";
     this -> entradaDatos.open(nombreFichero);
+    leerFichero(g);
 }
 
 bool CargarDatos::leerFichero(Grafo* g){
@@ -10,7 +11,7 @@ bool CargarDatos::leerFichero(Grafo* g){
     int numNodos, numAristas;
     string linea, ciudadInicio, ciudadFin;
 
-    if(this -> entradaDatos.is_open()){
+    if(entradaDatos.is_open()){
         
         //Leer numero de nodos.
         getline(entradaDatos, linea);
