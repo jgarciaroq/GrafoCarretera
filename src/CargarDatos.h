@@ -10,7 +10,7 @@ using namespace std;
 class CargarDatos{
 
     string nombreFichero;
-    ifstream entradaDatos;
+    
 
 public:
     bool leerFichero(Grafo* g);

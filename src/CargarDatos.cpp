@@ -1,5 +1,9 @@
 #include "CargarDatos.h"
 
+CargarDatos::CargarDatos(){
+    this -> nombreFichero = "../datos.in";
+}
+
 CargarDatos::CargarDatos(Grafo* g){
     this -> nombreFichero = "../datos.in";
     leerFichero(g);
@@ -10,7 +14,7 @@ bool CargarDatos::leerFichero(Grafo* g){
     int numNodos, numAristas;
     string linea, ciudadInicio, ciudadFin;
 
-    entradaDatos.open(nombreFichero);
+    ifstream entradaDatos("../datos.in", ios::in);
     cout << "----------";
 
     if(entradaDatos.is_open()){

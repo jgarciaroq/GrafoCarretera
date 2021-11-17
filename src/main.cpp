@@ -15,7 +15,8 @@ using namespace std;
 int main() {
 
 	Grafo* g = new Grafo();
-	CargarDatos* carga = new CargarDatos(g);
+	CargarDatos* carga = new CargarDatos();
+	carga->leerFichero(g);
 	//delete carga;
 	//g -> verVertices();
 
