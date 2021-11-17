@@ -79,6 +79,8 @@ public:
 
 
 	void borrar(string vertice);
+
+	//RecuperaCamino
 };
 
 
