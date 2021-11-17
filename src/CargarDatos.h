@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <ios>
+#include <string>
 #include "Grafo.h"
 
 using namespace std;

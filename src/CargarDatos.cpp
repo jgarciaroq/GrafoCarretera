@@ -14,7 +14,7 @@ bool CargarDatos::leerFichero(Grafo* g){
     int numNodos, numAristas;
     string linea, ciudadInicio, ciudadFin;
 
-    ifstream entradaDatos("../datos.in", ios::in);
+    ifstream entradaDatos("datos.txt", ios::in);
     cout << "----------";
 
     if(entradaDatos.is_open()){
