@@ -2,6 +2,7 @@
 #define CARGARDATOS_H_
 
 #include <fstream>
+#include "Grafo.h"
 
 using namespace std;
 
@@ -9,10 +10,14 @@ class CargarDatos{
 
     ifstream entradaDatos;
     string nombreFichero;
+    bool leerFichero(Grafo g);
+    
 
 public:
-    CargarDatos();
+    CargarDatos(Grafo g);
     
+    
+
 
 };
 
