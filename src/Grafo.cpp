@@ -25,30 +25,33 @@ void Grafo::cargarDatos(){
     int numNodos, numAristas;
     string linea, ciudadInicio, ciudadFin;
 
-    ifstream entradaDatos("Datos.in", ios::in);
-    
+    ifstream entradaDatos;
+	entradaDatos.open(NOM_FICHERO, ios::in);
 
-    if(entradaDatos){
+    if(entradaDatos.is_open()){
         
         //Leer numero de nodos.
-        getline(entradaDatos, linea);
+        getline(entradaDatos, linea, '\n');
         numNodos = stoi(linea);
-        
-        //Leer numero de nodos e insertarlos.
+
+        //Leer nombre de nodos e insertarlos.
         for(int i = 0; i < numNodos; i++){
-            getline(entradaDatos, linea);
+            getline(entradaDatos, linea, '\n');
             this -> insertarVertices(linea);
         }
 
+        //Leer salto de linea en linea 9
+        getline(entradaDatos, linea, '\n');
+        
         //Leer numero de aristas.
-        getline(entradaDatos, linea);
+        getline(entradaDatos, linea, '\n');
         numAristas = stoi(linea);
 
         //Leer las aristas e insertarlas en el grafo.
         for(int i = 0; i < numAristas; i++){
             getline(entradaDatos, ciudadInicio, ' ');
             getline(entradaDatos, ciudadFin, ' ');
-            getline(entradaDatos, linea);
+            getline(entradaDatos, linea, '\n');
 
             this -> insertarArcos(ciudadInicio, ciudadFin, stof(linea));
         }
@@ -56,8 +59,10 @@ void Grafo::cargarDatos(){
         entradaDatos.close();
         leido = true;
     } else{
-        cout << "Error";
+        cout << "Error: Fichero no encontrado.";
     }
+
+
 }
 
 bool Grafo::pertenece(string vertice, int &posicion){
@@ -102,7 +107,7 @@ void Grafo::insertarVertices(string vertice){
 			cjtoVertices[i] = vertice;
 			numNodos++;
 			insertado = true;
-		}
+		} else i++;
 	}
 }
 

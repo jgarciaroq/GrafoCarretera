@@ -9,12 +9,11 @@
 #ifndef GRAFO_H_
 #define GRAFO_H_
 
-#define FILENAME "../datos.in"
+#define NOM_FICHERO "datos.in"
 
 #include <iostream>
 #include <fstream>
 #include <string>
-
 
 using namespace std;
 
