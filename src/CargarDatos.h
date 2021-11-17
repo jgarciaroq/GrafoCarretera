@@ -6,7 +6,14 @@
 using namespace std;
 
 class CargarDatos{
+
+    ifstream entradaDatos;
+    string nombreFichero;
+
+public:
+    CargarDatos();
     
+
 };
 
 #endif /* CARGARDATOS_H_ */

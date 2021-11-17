@@ -18,49 +18,69 @@ Grafo::Grafo(){
 }
 
 void Grafo::inicializarMatriz(){
+	for(int i = 0; i < MAX; i++){
+		cjtoVertices[i] = "\0";
+	}
+
 	for(int i=0; i < MAX; i++){
 		for(int j=0; j < MAX; j++){
-			Cjtovertices[j]=" ";
+			cjtoVertices[j]=" ";
 			if (i==j){
-				MatAdyacencia[i][j]=0;
+				matrizAdyacencia[i][j]=0;
 			}else{
-				MatAdyacencia[i][j]=INF;
+				matrizAdyacencia[i][j]=INF;
 			}
 		}
 	}
 }
 
-void Grafo::CargarDatos(ifstream &flujo_lectura){
-	insertarVertices(numNodos, flujo_lectura);
-	insertarArcos(numArcos, flujo_lectura);
-}
 
-void Grafo::insertarVertices(int numNodos, ifstream &flujo_lectura){
+void Grafo::insertarVertices(string vertice){
+	int i = 0;
+	bool insertado = false;
 
-	string cadena;
-	int size;
-	getline(flujo_lectura,cadena);
-	size=stoi(cadena);
-	cout << size;
-	int i=0;
-	while(i<size){
+	while(!insertado && i < MAX){
 
-		getline(flujo_lectura,cadena);
-		Cjtovertices[i]=cadena;
-		this -> numNodos++;
-		i++;
+		if(cjtoVertices[i] == "\0"){
+			cjtoVertices[i] = vertice;
+			numNodos++;
+			insertado = true;
+		}
 	}
 }
 
+void Grafo::borrar(string vertice){
+	bool borrado = false;
+	int i = 0;
+
+	while(!borrado && i < MAX){
+		if(cjtoVertices[i] == vertice){
+			cjtoVertices[i] = "\0";
+
+			for(int j = 0; j < MAX; j++){
+				
+				if(i != j){
+					matrizAdyacencia[i][j] = INF;
+					matrizAdyacencia[j][i] = INF;
+				} else{
+					matrizAdyacencia[i][j] = 0;
+					matrizAdyacencia[j][i] = 0;
+				}
+			}
+			borrado = true;
+		} else i++;
+	}
+
+	
+}
 
 void Grafo::verVertices (){
 	cout << numNodos << endl;
 	for (int i=0; i < numNodos; i++){
-		cout << Cjtovertices[i] <<endl;
+		cout << cjtoVertices[i] <<endl;
 	}
 }
 
 void Grafo::insertarArcos(int numArcos, ifstream &flujo_lectura){
-
+	
 }
-

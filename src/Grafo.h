@@ -17,14 +17,14 @@
 
 using namespace std;
 
-static const int MAX = 20;    //Constante de valor 20, es de utilidad ya que se indica que como máximo tedremos 20 nodos.
+static const int MAX = 20;    //Constante de valor 20, es de utilidad ya que se indica que como mï¿½ximo tedremos 20 nodos.
 static const float INF = 9999.99;	//Constante infinito para inicializar la matriz
 
 class Grafo {
 
-	string Cjtovertices[MAX];    	//Conjunto de nodos que tendra nuestro grafo
+	string cjtoVertices[MAX];    	//Conjunto de nodos que tendra nuestro grafo
 
-	float MatAdyacencia[MAX][MAX];  //Conjunto de aristas que tendra nuestro grafo
+	float matrizAdyacencia[MAX][MAX];  //Conjunto de aristas que tendra nuestro grafo
 
 	int numNodos;					//Numero de nodos insertados en el grafo
 
@@ -60,7 +60,7 @@ public:
 	void CargarDatos(ifstream &flujo_lectura);
 
 	void inicializarMatriz();
-	void insertarVertices(int numNodos, ifstream &flujo_lectura);
+	void insertarVertices(string vertice);
 	void insertarArcos(int numArcos, ifstream &flujo_lectura);
 	void verVertices ();
 
@@ -77,6 +77,8 @@ public:
 		 */
 		void MostrarDatos(float matriz[MAX][MAX]);
 
+
+	void borrar(string vertice);
 };
 
 
