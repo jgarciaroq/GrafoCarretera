@@ -1,34 +1,50 @@
 /*
- * Grafo.cpp
+ *  Implementación del grafo declarado en Grafo.h
  *
- *Indica el/los nombre/s del/los autor/es
- *  Juan Francisco Garcia Hinojosa
- *  Fernando Broncano
+ *	@author Fernando Broncano Morgado
+ *	@author Juan Francisco García Hinojosa
+ *  
+ *  @version 1.0
  */
 
-#include "Grafo.h"
 #include <iostream>
+#include "Grafo.h"
+
 using namespace std;
 
 //Constructor
 Grafo::Grafo(){
-	numNodos=0;
-	numArcos=0;
+	numNodos = 0;
+	numArcos = 0;
 	inicializarMatriz();
 }
 
+bool Grafo::pertenece(string vertice, int posicion){
+	bool encontrado = false;
+	int indice = 0;
+	
+	while(indice < numNodos && !encontrado){
+		if(cjtoVertices[indice] == vertice){
+			posicion = indice;
+			encontrado = true;
+		} else indice++;
+	}
+
+	return encontrado;
+}
+
 void Grafo::inicializarMatriz(){
+	
 	for(int i = 0; i < MAX; i++){
 		cjtoVertices[i] = "\0";
 	}
 
-	for(int i=0; i < MAX; i++){
-		for(int j=0; j < MAX; j++){
-			cjtoVertices[j]=" ";
-			if (i==j){
-				matrizAdyacencia[i][j]=0;
-			}else{
-				matrizAdyacencia[i][j]=INF;
+	for(int i = 0; i < MAX; i++){
+		for(int j = 0; j < MAX; j++){
+			if(i==j){
+				matrizAdyacencia[i][j] = 0;
+			} else{
+				matrizAdyacencia[i][j] = INF;
 			}
 		}
 	}
@@ -57,30 +73,38 @@ void Grafo::borrar(string vertice){
 		if(cjtoVertices[i] == vertice){
 			cjtoVertices[i] = "\0";
 
-			for(int j = 0; j < MAX; j++){
-				
+			for(int j = 0; j < MAX; j++){	
 				if(i != j){
 					matrizAdyacencia[i][j] = INF;
-					matrizAdyacencia[j][i] = INF;
 				} else{
 					matrizAdyacencia[i][j] = 0;
-					matrizAdyacencia[j][i] = 0;
 				}
 			}
+
 			borrado = true;
 		} else i++;
 	}
-
-	
 }
 
-void Grafo::verVertices (){
+void Grafo::verVertices(){
 	cout << numNodos << endl;
 	for (int i=0; i < numNodos; i++){
-		cout << cjtoVertices[i] <<endl;
+		cout << cjtoVertices[i] << endl;
 	}
 }
 
-void Grafo::insertarArcos(int numArcos, ifstream &flujo_lectura){
-	
+bool Grafo::insertarArcos(string inicio, string fin, float distancia){
+
+	bool insertado = false;
+	int posInicio, posFin;
+
+	if(inicio != fin){
+		if(pertenece(inicio, posInicio) && pertenece(fin, posFin)){
+			matrizAdyacencia[posInicio][posFin] = distancia;
+			matrizAdyacencia[posFin][posInicio] = distancia;
+			insertado = true;
+		}
+	}
+
+	return insertado;
 }

@@ -11,13 +11,12 @@
 
 #include <iostream>
 #include <fstream>
-#include <cstdlib>
 #include <string>
 
 
 using namespace std;
 
-static const int MAX = 20;    //Constante de valor 20, es de utilidad ya que se indica que como m�ximo tedremos 20 nodos.
+static const int MAX = 20;    //Constante de valor 20, es de utilidad ya que se indica que como máximo tedremos 20 nodos.
 static const float INF = 9999.99;	//Constante infinito para inicializar la matriz
 
 class Grafo {
@@ -36,32 +35,49 @@ class Grafo {
 	//	Son las matrices que resultan de aplicar los diferentes algoritmos que vayas necesitando.
 	//*********************************************************************************************************
 
-
-		/*
-		 * PRE: {Las estructuras del grafo han de estar correctamente definidas}
-		 * POST: {-Inicializamos el numero de ocupados 0
-	     *  	  -Inicializamos el conjunto de vértices
-	     *        -Inicializamos el conjunto de caminos (Matriz de Adyacencia) con el valor 9999 en todas sus casillas y 0 en la diagonal,
-		 *        }
-		 * Complejidad: O(n^2)
-		 */
 public:
-
-
+	/*
+	 * PRE: {Las estructuras del grafo han de estar correctamente definidas}
+	 * POST: {-Inicializamos el numero de ocupados 0
+	 *  	  -Inicializamos el conjunto de vértices
+	 *        -Inicializamos el conjunto de caminos (Matriz de Adyacencia) con el valor 9999 en todas sus casillas y 0 en la diagonal,
+	 *        }
+	 * Complejidad: O(n^2)
+	 */
 	Grafo();
 
 	/*
 	 * PRE: {Las estructuras del grafo han de estar correctamente definidas e inicializadas}
-	 * POST: {Abrimos un flujo de lectura del fichero "Datos.in" y cargamos las diferentes estructuras del Grafo a partir de los datos ...............}
-
-
+	 * POST: {Abrimos un flujo de lectura del fichero "Datos.in" y cargamos las diferentes estructuras del Grafo a partir de los datos}
 	 * Complejidad: O(n)
 	 */
 	void CargarDatos(ifstream &flujo_lectura);
 
+	/**
+	 * @brief 
+	 * 
+	 */
 	void inicializarMatriz();
+
+	/**
+	 * @brief 
+	 * 
+	 * @param vertice 
+	 */
 	void insertarVertices(string vertice);
-	void insertarArcos(int numArcos, ifstream &flujo_lectura);
+
+	/**
+	 * @brief 
+	 * 
+	 * @param numArcos 
+	 * @param flujo_lectura 
+	 */
+	bool insertarArcos(string inicio, string fin, float distancia);
+
+	/**
+	 * @brief 
+	 * 
+	 */
 	void verVertices ();
 
 	//********************************************************************************
@@ -69,17 +85,31 @@ public:
 	//	Documentarlos de forma correcta.
 	//**********************************************************************************************************
 
+	/*
+	 * PRE: {La estructuras del grafo han de estar correctamente definidas, inicializadas y cargadas}
+	 * POST: {Muestra la matriz que se indica como parámetro de entrada.
+	 * Complejidad: O(n^2)
+	 */
+	void MostrarDatos(float matriz[MAX][MAX]);
 
-		/*
-		 * PRE: {La estructuras del grafo han de estar correctamente definidas, inicializadas y cargadas}
-		 * POST: {Muestra la matriz que se indica como parámetro de entrada.
-		 * Complejidad: O(n^2)
-		 */
-		void MostrarDatos(float matriz[MAX][MAX]);
-
-
+	/**
+	 * @brief 
+	 * 
+	 * @param vertice 
+	 */
 	void borrar(string vertice);
 
+	/**
+	 * @brief 
+	 * 
+	 * @param vertice 
+	 * @param posicion 
+	 * @return true 
+	 * @return false 
+	 */
+	bool pertenece(string vertice, int posicion);
+	
+	
 	//RecuperaCamino
 };
 

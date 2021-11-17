@@ -10,15 +10,12 @@ class CargarDatos{
 
     ifstream entradaDatos;
     string nombreFichero;
-    bool leerFichero(Grafo g);
+    bool leerFichero(Grafo* g);
     
 
 public:
-    CargarDatos(Grafo g);
-    
-    
-
-
+    CargarDatos(Grafo* g);
+    ~CargarDatos();
 };
 
 #endif /* CARGARDATOS_H_ */
