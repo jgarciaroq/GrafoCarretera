@@ -37,14 +37,6 @@ class Grafo {
 	//	Son las matrices que resultan de aplicar los diferentes algoritmos que vayas necesitando.
 	//*********************************************************************************************************
 
-	/**
-	 * @brief 
-	 * 
-	 * @return true 
-	 * @return false 
-	 */
-	bool cargarDatos();
-
 public:
 	/*
 	 * PRE: {Las estructuras del grafo han de estar correctamente definidas}
@@ -61,7 +53,7 @@ public:
 	 * POST: {Abrimos un flujo de lectura del fichero "Datos.in" y cargamos las diferentes estructuras del Grafo a partir de los datos}
 	 * Complejidad: O(n)
 	 */
-	void CargarDatos(ifstream &flujo_lectura);
+	void cargarDatos();
 
 	/**
 	 * @brief 

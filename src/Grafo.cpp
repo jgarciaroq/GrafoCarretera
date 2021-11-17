@@ -17,21 +17,19 @@ Grafo::Grafo(){
 	numNodos = 0;
 	numArcos = 0;
 	inicializarMatriz();
+	cargarDatos();
 }
 
-bool Grafo::cargarDatos(){
+void Grafo::cargarDatos(){
 	bool leido = false;
     int numNodos, numAristas;
     string linea, ciudadInicio, ciudadFin;
 
-    ifstream entradaDatos("../datos.in", ios::in);
+    ifstream entradaDatos("Datos.in", ios::in);
     
 
-    if(entradaDatos.is_open()){
-        getline(entradaDatos, linea, '\n');
-        cout << linea;
-
-        /*
+    if(entradaDatos){
+        
         //Leer numero de nodos.
         getline(entradaDatos, linea);
         numNodos = stoi(linea);
@@ -39,7 +37,7 @@ bool Grafo::cargarDatos(){
         //Leer numero de nodos e insertarlos.
         for(int i = 0; i < numNodos; i++){
             getline(entradaDatos, linea);
-            g -> insertarVertices(linea);
+            this -> insertarVertices(linea);
         }
 
         //Leer numero de aristas.
@@ -52,16 +50,14 @@ bool Grafo::cargarDatos(){
             getline(entradaDatos, ciudadFin, ' ');
             getline(entradaDatos, linea);
 
-            g -> insertarArcos(ciudadInicio, ciudadFin, stof(linea));
-        }*/
+            this -> insertarArcos(ciudadInicio, ciudadFin, stof(linea));
+        }
 
         entradaDatos.close();
         leido = true;
     } else{
         cout << "Error";
     }
-
-    return leido;
 }
 
 bool Grafo::pertenece(string vertice, int &posicion){
