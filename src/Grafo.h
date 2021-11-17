@@ -9,6 +9,8 @@
 #ifndef GRAFO_H_
 #define GRAFO_H_
 
+#define FILENAME "../datos.in"
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -34,6 +36,14 @@ class Grafo {
 	//	Deberás añadir más matrices, si lo consideras necesario para resolver el ejercicio.
 	//	Son las matrices que resultan de aplicar los diferentes algoritmos que vayas necesitando.
 	//*********************************************************************************************************
+
+	/**
+	 * @brief 
+	 * 
+	 * @return true 
+	 * @return false 
+	 */
+	bool cargarDatos();
 
 public:
 	/*
@@ -109,7 +119,7 @@ public:
 	 */
 	bool pertenece(string vertice, int &posicion);
 	
-	
+
 	//RecuperaCamino
 };
 

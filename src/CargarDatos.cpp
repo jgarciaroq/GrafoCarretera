@@ -14,11 +14,11 @@ bool CargarDatos::leerFichero(Grafo* g){
     int numNodos, numAristas;
     string linea, ciudadInicio, ciudadFin;
 
-    ifstream entradaDatos("datos.txt", ios::in);
-    cout << "----------";
+    ifstream in;
+    in.open("Datos.in", ios::in);
 
-    if(entradaDatos.is_open()){
-        getline(entradaDatos, linea);
+    if(in.is_open()){
+        getline(in, linea, '\n');
         cout << linea;
 
         /*
@@ -45,7 +45,7 @@ bool CargarDatos::leerFichero(Grafo* g){
             g -> insertarArcos(ciudadInicio, ciudadFin, stof(linea));
         }*/
 
-        entradaDatos.close();
+        in.close();
         leido = true;
     } else{
         cout << "Error";
