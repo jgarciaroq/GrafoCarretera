@@ -128,6 +128,7 @@ public:
 
 	void caminoFloyd(int posOrigen, int posDestino, ofstream &salidaDatos);
 
+
 	//RecuperaCamino
 };
 

@@ -155,7 +155,7 @@ bool Grafo::insertarArcos(string inicio, string fin, float distancia){
 	int posInicio, posFin;
 
 	if(inicio != fin){
-		if(pertenece(inicio, posInicio) && pertenece(fin, posFin)){
+		if(pertenece( inicio, posInicio) && pertenece(fin, posFin)){
 			matrizAdyacencia[posInicio][posFin] = distancia;
 			matrizAdyacencia[posFin][posInicio] = distancia;
 			insertado = true;
@@ -212,6 +212,7 @@ void Grafo::caminoFloyd(int posOrigen, int posDestino, ofstream &salidaDatos){
 		caminoFloyd(k, posDestino, salidaDatos);
 	}
 }
+
 
 //Muestra el valor de cada arista.
 void Grafo::mostrarDatos(float matriz[MAX][MAX]){
