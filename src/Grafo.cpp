@@ -97,6 +97,8 @@ void Grafo::prueba(){
 	cout << "-------------------------" << endl;
 	mostrarDatos(matrizFloyd);
 	cout << "-------------------------" << endl;
+
+	caminoFloyd(4,6);
 }
 
 bool Grafo::pertenece(string vertice, int &posicion){
@@ -205,13 +207,13 @@ void Grafo::Floyd(){
 	}
 }
 
-void Grafo::caminoFloyd(int posOrigen, int posDestino, ofstream &salidaDatos){
+void Grafo::caminoFloyd(int posOrigen, int posDestino){
 	int k;
 	k=matrizCaminos[posOrigen][posDestino];
 	if(k!=0){
-		caminoFloyd(posOrigen, k, salidaDatos);
-		salidaDatos<<cjtoVertices[k]<<" ";
-		caminoFloyd(k, posDestino, salidaDatos);
+		caminoFloyd(posOrigen, k);
+		cout<<cjtoVertices[k]<<" ";
+		caminoFloyd(k, posDestino);
 	}
 }
 

@@ -84,7 +84,7 @@ public:
 
 	void iniciarMatrizCaminos();
 
-	void caminoFloyd(int posOrigen, int posDestino, ofstream &salidaDatos);
+	void caminoFloyd(int posOrigen, int posDestino);
 
 	void prueba();
 	//RecuperaCamino
