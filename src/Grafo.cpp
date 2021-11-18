@@ -16,7 +16,12 @@ using namespace std;
 Grafo::Grafo(){
 	numNodos = 0;
 	numArcos = 0;
-	inicializarMatriz();
+	
+	for(int i = 0; i < MAX; i++){
+		cjtoVertices[i] = "\0";
+	}
+
+	inicializarMatriz(matrizAdyacencia);
 	cargarDatos();
 }
 
@@ -71,6 +76,13 @@ void Grafo::cargarDatos(){
     } else{
         cout << "Error: Fichero no encontrado.";
     }
+
+}
+
+void Grafo::prueba(){
+	Floyd();
+	mostrarDatos(matrizCaminos);
+	mostrarDatos(matrizFloyd);
 }
 
 bool Grafo::pertenece(string vertice, int &posicion){
@@ -87,18 +99,13 @@ bool Grafo::pertenece(string vertice, int &posicion){
 	return encontrado;
 }
 
-void Grafo::inicializarMatriz(){
-	
-	for(int i = 0; i < MAX; i++){
-		cjtoVertices[i] = "\0";
-	}
-
+void Grafo::inicializarMatriz(float matriz[MAX][MAX]){
 	for(int i = 0; i < MAX; i++){
 		for(int j = 0; j < MAX; j++){
 			if(i==j){
-				matrizAdyacencia[i][j] = 0;
+				matriz[i][j] = 0;
 			} else{
-				matrizAdyacencia[i][j] = INF;
+				matriz[i][j] = INF;
 			}
 		}
 	}
@@ -168,32 +175,20 @@ bool Grafo::insertarArcos(string inicio, string fin, float distancia){
 void Grafo::copiarMatrizAdyacencia(){
 	for(int i=0; i < numNodos; i++){
 		for(int j=0; i < numNodos; j++){
-			matrizAdyacenciaFloyd[i][j]=matrizAdyacencia[i][j];
+			matrizFloyd[i][j] = matrizAdyacencia[i][j];
 		}
 	}
 }
 
-void Grafo::iniciarMatrizCaminos(){
-	for(int i = 0; i < numNodos; i++){
-		for(int j = 0; j < numNodos; j++){
-			if(i==j){
-				matrizCaminos[i][j] = 0;
-			} else{
-				matrizCaminos[i][j] = INF;
-			}
-		}
-	}
-}
-
-
-void Grafo::Floyd (){
+void Grafo::Floyd(){
 	copiarMatrizAdyacencia();
-	iniciarMatrizCaminos();
+	inicializarMatriz(matrizCaminos);
+
 	for (int k=0; k<numNodos; k++){
 		for (int i=0; i<numNodos; i++){
 			for(int j=0; j<numNodos; j++){
-				if((matrizAdyacenciaFloyd[i][k]+matrizAdyacenciaFloyd[k][j]) < matrizAdyacenciaFloyd[i][j]){
-					matrizAdyacenciaFloyd[i][j]=matrizAdyacenciaFloyd[i][k]+matrizAdyacenciaFloyd[k][j];
+				if((matrizFloyd[i][k]+matrizFloyd[k][j]) < matrizFloyd[i][j]){
+					matrizFloyd[i][j]=matrizFloyd[i][k]+matrizFloyd[k][j];
 					matrizCaminos[i][j]=k;
 				}
 			}

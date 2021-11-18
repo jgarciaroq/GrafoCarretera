@@ -15,6 +15,7 @@ int main(){
 
 	Grafo* g = new Grafo();
 	g -> verVertices();
+	g -> prueba();
 	delete g;
 
 	return 0;

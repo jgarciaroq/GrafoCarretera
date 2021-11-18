@@ -27,9 +27,9 @@ class Grafo {
 
 	float matrizAdyacencia[MAX][MAX];  //Conjunto de aristas que tendra nuestro grafo
 
-	float matrizAdyacenciaFloyd[MAX][MAX]; //Matriz de Floyd
+	float matrizFloyd[MAX][MAX]; //Matriz de Floyd
 
-	int matrizCaminos[MAX][MAX]; //Matriz de caminos utilizadas en Floyd
+	float matrizCaminos[MAX][MAX]; //Matriz de caminos utilizadas en Floyd
 
 	int numNodos;					//Numero de nodos insertados en el grafo
 
@@ -59,38 +59,6 @@ public:
 	 */
 	void cargarDatos();
 
-	/**
-	 * @brief 
-	 * 
-	 */
-	void inicializarMatriz();
-
-	/**
-	 * @brief 
-	 * 
-	 * @param vertice 
-	 */
-	void insertarVertices(string vertice);
-
-	/**
-	 * @brief 
-	 * 
-	 * @param numArcos 
-	 * @param flujo_lectura 
-	 */
-	bool insertarArcos(string inicio, string fin, float distancia);
-
-	/**
-	 * @brief 
-	 * 
-	 */
-	void verVertices ();
-
-	//********************************************************************************
-	//	Deberás añadir más métodos necesarios para resolver el ejercicio.
-	//	Documentarlos de forma correcta.
-	//**********************************************************************************************************
-
 	/*
 	 * PRE: {La estructuras del grafo han de estar correctamente definidas, inicializadas y cargadas}
 	 * POST: {Muestra la matriz que se indica como parámetro de entrada.
@@ -98,37 +66,27 @@ public:
 	 */
 	void mostrarDatos(float matriz[MAX][MAX]);
 
-	/**
-	 * @brief 
-	 * 
-	 * @param vertice 
-	 */
+	void inicializarMatriz(float matriz[MAX][MAX]);
+
+	void insertarVertices(string vertice);
+
+	bool insertarArcos(string inicio, string fin, float distancia);
+
+	void verVertices ();
+
 	void borrar(string vertice);
 
-	/**
-	 * @brief 
-	 * 
-	 * @param vertice 
-	 * @param posicion 
-	 * @return true 
-	 * @return false 
-	 */
 	bool pertenece(string vertice, int &posicion);
 	
-
-
 	void Floyd ();
-
 
 	void copiarMatrizAdyacencia();
 
-
 	void iniciarMatrizCaminos();
-
 
 	void caminoFloyd(int posOrigen, int posDestino, ofstream &salidaDatos);
 
-
+	void prueba();
 	//RecuperaCamino
 };
 
