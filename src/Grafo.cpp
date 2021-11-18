@@ -17,6 +17,52 @@ Grafo::Grafo(){
 	numNodos = 0;
 	numArcos = 0;
 	inicializarMatriz();
+	cargarDatos();
+}
+
+void Grafo::cargarDatos(){
+	bool leido = false;
+    int numNodos, numAristas;
+    string linea, ciudadInicio, ciudadFin;
+
+    ifstream entradaDatos;
+	entradaDatos.open(NOM_FICHERO, ios::in);
+
+    if(entradaDatos.is_open()){
+        
+        //Leer numero de nodos.
+        getline(entradaDatos, linea, '\n');
+        numNodos = stoi(linea);
+
+        //Leer nombre de nodos e insertarlos.
+        for(int i = 0; i < numNodos; i++){
+            getline(entradaDatos, linea, '\n');
+            this -> insertarVertices(linea);
+        }
+
+        //Leer salto de linea en linea 9
+        getline(entradaDatos, linea, '\n');
+        
+        //Leer numero de aristas.
+        getline(entradaDatos, linea, '\n');
+        numAristas = stoi(linea);
+
+        //Leer las aristas e insertarlas en el grafo.
+        for(int i = 0; i < numAristas; i++){
+            getline(entradaDatos, ciudadInicio, ' ');
+            getline(entradaDatos, ciudadFin, ' ');
+            getline(entradaDatos, linea, '\n');
+
+            this -> insertarArcos(ciudadInicio, ciudadFin, stof(linea));
+        }
+
+        entradaDatos.close();
+        leido = true;
+    } else{
+        cout << "Error: Fichero no encontrado.";
+    }
+
+
 }
 
 bool Grafo::pertenece(string vertice, int &posicion){
@@ -61,7 +107,7 @@ void Grafo::insertarVertices(string vertice){
 			cjtoVertices[i] = vertice;
 			numNodos++;
 			insertado = true;
-		}
+		} else i++;
 	}
 }
 

@@ -7,20 +7,14 @@
 //============================================================================
 
 #include "Grafo.h"
-#include "CargarDatos.h"
 #include <iostream>
 
 using namespace std;
 
-int main() {
+int main(){
 
 	Grafo* g = new Grafo();
-	CargarDatos* carga = new CargarDatos();
-	carga->leerFichero(g);
-	//delete carga;
-	//g -> verVertices();
-
-	delete carga;
+	g -> verVertices();
 	delete g;
 
 	return 0;

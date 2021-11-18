@@ -9,10 +9,11 @@
 #ifndef GRAFO_H_
 #define GRAFO_H_
 
+#define NOM_FICHERO "datos.in"
+
 #include <iostream>
 #include <fstream>
 #include <string>
-
 
 using namespace std;
 
@@ -51,7 +52,7 @@ public:
 	 * POST: {Abrimos un flujo de lectura del fichero "Datos.in" y cargamos las diferentes estructuras del Grafo a partir de los datos}
 	 * Complejidad: O(n)
 	 */
-	void CargarDatos(ifstream &flujo_lectura);
+	void cargarDatos();
 
 	/**
 	 * @brief 
@@ -109,7 +110,7 @@ public:
 	 */
 	bool pertenece(string vertice, int &posicion);
 	
-	
+
 	//RecuperaCamino
 };
 
