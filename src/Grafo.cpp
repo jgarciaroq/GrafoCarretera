@@ -35,8 +35,9 @@ void Grafo::cargarDatos(){
 
         //Leer nombre de nodos e insertarlos.
         for(int i = 0; i < numNodos; i++){
-            getline(entradaDatos, linea, '\n');
+            getline(entradaDatos, linea, ' ');
             this -> insertarVertices(linea);
+			getline(entradaDatos, linea, '\n');
         }
 
         //Leer salto de linea en linea 9
@@ -53,11 +54,10 @@ void Grafo::cargarDatos(){
             getline(entradaDatos, linea, '\n');
 			
 			
-            if(this -> insertarArcos(ciudadInicio, ciudadFin, stof(linea))) cout << "Bien";
+            if(this -> insertarArcos(ciudadInicio, ciudadFin, stof(linea))) cout << "Bien" << endl;
 			else cout << "No inserta: " << ciudadInicio << "----" <<ciudadFin << "." << endl;
         }
 
-		cout << numAristas;
 		//Leer salto de linea en linea 9
         getline(entradaDatos, linea, '\n');
         
@@ -112,7 +112,7 @@ void Grafo::insertarVertices(string vertice){
 	while(!insertado && i < MAX){
 
 		if(cjtoVertices[i] == "\0"){
-			cjtoVertices[i] = vertice;
+			cjtoVertices[i] = string(vertice);
 			numNodos++;
 			insertado = true;
 		} else i++;
@@ -143,7 +143,7 @@ void Grafo::borrar(string vertice){
 void Grafo::verVertices(){
 	cout << numNodos << endl;
 	for (int i=0; i < numNodos; i++){
-		cout << cjtoVertices[i] << "             " << endl;
+		cout << cjtoVertices[i] << "   " << endl;
 	}
 }
 
@@ -166,8 +166,8 @@ bool Grafo::insertarArcos(string inicio, string fin, float distancia){
 
 
 void Grafo::copiarMatrizAdyacencia(){
-	for (int i=0; i < numNodos; i++){
-		for (int j=0; i < numNodos; j++){
+	for(int i=0; i < numNodos; i++){
+		for(int j=0; i < numNodos; j++){
 			matrizAdyacenciaFloyd[i][j]=matrizAdyacencia[i][j];
 		}
 	}
