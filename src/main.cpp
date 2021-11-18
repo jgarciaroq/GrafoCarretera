@@ -11,7 +11,7 @@
 
 using namespace std;
 
-int main() {
+int main(){
 
 	Grafo* g = new Grafo();
 	g -> verVertices();
