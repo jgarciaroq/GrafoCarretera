@@ -27,6 +27,8 @@ class Grafo {
 
 	float matrizAdyacencia[MAX][MAX];  //Conjunto de aristas que tendra nuestro grafo
 
+	float matrizAdyacenciaFloyd[MAX][MAX]; //Matriz de Floyd
+
 	int numNodos;					//Numero de nodos insertados en el grafo
 
 	int numArcos;					//Numero de vertices insertados en el grafo
@@ -111,6 +113,13 @@ public:
 	 */
 	bool pertenece(string vertice, int &posicion);
 	
+
+
+	void Floyd ();
+
+
+	void copiarMatrizAdyacencia();
+
 
 	//RecuperaCamino
 };

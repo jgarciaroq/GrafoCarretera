@@ -165,6 +165,31 @@ bool Grafo::insertarArcos(string inicio, string fin, float distancia){
 	return insertado;
 }
 
+
+
+void Grafo::copiarMatrizAdyacencia(){
+	for (int i=0; i < numNodos; i++){
+		for (int j=0; i < numNodos; j++){
+			matrizAdyacenciaFloyd[i][j]=matrizAdyacencia[i][j];
+		}
+	}
+}
+
+
+void Grafo::Floyd (){
+	copiarMatrizAdyacencia();
+	for (int k=0; k<numNodos; k++){
+		for (int i=0; i<numNodos; i++){
+			for(int j=0; j<numNodos; j++){
+				if(matrizAdyacenciaFloyd[i][j]> (matrizAdyacenciaFloyd[i][k]+matrizAdyacenciaFloyd[k][j])){
+					matrizAdyacenciaFloyd[i][j]=matrizAdyacenciaFloyd[i][k]+matrizAdyacenciaFloyd[k][j];
+					matrizAdyacenciaFloyd[i][j]=k;
+				}
+			}
+		}
+	}
+}
+
 //Muestra el valor de cada arista.
 void Grafo::mostrarDatos(float matriz[MAX][MAX]){
 	for(int i = 0; i < numNodos; i++){
