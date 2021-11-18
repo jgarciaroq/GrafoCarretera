@@ -21,7 +21,7 @@ bool CargarDatos::leerFichero(Grafo* g){
         getline(entradaDatos, linea);
         cout << linea;
 
-        /*
+
         //Leer numero de nodos.
         getline(entradaDatos, linea);
         numNodos = stoi(linea);
@@ -43,7 +43,7 @@ bool CargarDatos::leerFichero(Grafo* g){
             getline(entradaDatos, linea);
 
             g -> insertarArcos(ciudadInicio, ciudadFin, stof(linea));
-        }*/
+        }
 
         entradaDatos.close();
         leido = true;
