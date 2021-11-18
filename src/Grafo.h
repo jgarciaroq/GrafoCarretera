@@ -80,7 +80,7 @@ public:
 	
 	void Floyd ();
 
-	void copiarMatrizAdyacencia();
+	void copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]);
 
 	void iniciarMatrizCaminos();
 

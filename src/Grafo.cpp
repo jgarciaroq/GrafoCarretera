@@ -23,6 +23,14 @@ Grafo::Grafo(){
 
 	inicializarMatriz(matrizAdyacencia);
 	cargarDatos();
+
+	for(int i = 0; i < numNodos; i++){
+		for(int j = 0; j < numNodos; j++){
+			matrizFloyd[i][j] = matrizAdyacencia[i][j];
+		}
+	}
+	
+	inicializarMatriz(matrizCaminos);
 }
 
 void Grafo::cargarDatos(){
@@ -60,7 +68,7 @@ void Grafo::cargarDatos(){
 			
 			
             if(this -> insertarArcos(ciudadInicio, ciudadFin, stof(linea))) cout << "Bien" << endl;
-			else cout << "No inserta: " << ciudadInicio << "----" <<ciudadFin << "." << endl;
+			else cout << "No inserta: " << ciudadInicio << "--" <<ciudadFin << "." << endl;
         }
 
 		//Leer salto de linea en linea 9
@@ -80,9 +88,15 @@ void Grafo::cargarDatos(){
 }
 
 void Grafo::prueba(){
+	mostrarDatos(matrizCaminos);
+	cout << "-------------------------" << endl;
+	mostrarDatos(matrizFloyd);
+	cout << "-------------------------" << endl;
 	Floyd();
 	mostrarDatos(matrizCaminos);
+	cout << "-------------------------" << endl;
 	mostrarDatos(matrizFloyd);
+	cout << "-------------------------" << endl;
 }
 
 bool Grafo::pertenece(string vertice, int &posicion){
@@ -170,20 +184,15 @@ bool Grafo::insertarArcos(string inicio, string fin, float distancia){
 	return insertado;
 }
 
-
-
-void Grafo::copiarMatrizAdyacencia(){
+void Grafo::copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]){
 	for(int i=0; i < numNodos; i++){
 		for(int j=0; i < numNodos; j++){
-			matrizFloyd[i][j] = matrizAdyacencia[i][j];
+			matriz2[i][j] = matriz1[i][j];
 		}
 	}
 }
 
 void Grafo::Floyd(){
-	copiarMatrizAdyacencia();
-	inicializarMatriz(matrizCaminos);
-
 	for (int k=0; k<numNodos; k++){
 		for (int i=0; i<numNodos; i++){
 			for(int j=0; j<numNodos; j++){
@@ -212,7 +221,7 @@ void Grafo::mostrarDatos(float matriz[MAX][MAX]){
 	for(int i = 0; i < numNodos; i++){
 		for(int j = 0; j < numNodos; j++){
 			if(matriz[i][j] != INF) cout << matriz[i][j] << " ";
-			else cout << "---- ";
+			else cout << "-- ";
 		}
 		cout << endl;
 	}
