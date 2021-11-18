@@ -51,10 +51,11 @@ void Grafo::cargarDatos(){
             getline(entradaDatos, ciudadInicio, ' ');
             getline(entradaDatos, ciudadFin, ' ');
             getline(entradaDatos, linea, '\n');
-
-            this -> insertarArcos(ciudadInicio, ciudadFin, stof(linea));
+            if(this -> insertarArcos(ciudadInicio, ciudadFin, stof(linea))) cout << "Bien";
+			else cout << "No inserta: " << ciudadInicio << ciudadFin << endl;
         }
 
+		cout << numAristas;
 		//Leer salto de linea en linea 9
         getline(entradaDatos, linea, '\n');
         
@@ -62,8 +63,9 @@ void Grafo::cargarDatos(){
         getline(entradaDatos, linea, '\n');
         numCaminos = stoi(linea);
 
-
         entradaDatos.close();
+
+		mostrarDatos(matrizAdyacencia);
     } else{
         cout << "Error: Fichero no encontrado.";
     }
@@ -72,10 +74,14 @@ void Grafo::cargarDatos(){
 bool Grafo::pertenece(string vertice, int &posicion){
 	bool encontrado = false;
 	int indice = 0;
+
+	cout << vertice << numNodos << endl;
 	
 	while(indice < numNodos && !encontrado){
-		if(cjtoVertices[indice] == vertice){
+		
+		if(this -> cjtoVertices[indice] == vertice){
 			posicion = indice;
+			cout << posicion;
 			encontrado = true;
 		} else indice++;
 	}
@@ -163,9 +169,9 @@ bool Grafo::insertarArcos(string inicio, string fin, float distancia){
 void Grafo::mostrarDatos(float matriz[MAX][MAX]){
 	for(int i = 0; i < numNodos; i++){
 		for(int j = 0; j < numNodos; j++){
-			if(matriz[i][j] != INF) std::cout << matriz[i][j] << " ";
-			else std::cout << "---- ";
+			if(matriz[i][j] != INF) cout << matriz[i][j] << " ";
+			else cout << "---- ";
 		}
-		std::cout << std::endl;
+		cout << endl;
 	}
 }
