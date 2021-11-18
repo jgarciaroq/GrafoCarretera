@@ -169,18 +169,41 @@ void Grafo::copiarMatrizAdyacencia(){
 	}
 }
 
+void Grafo::iniciarMatrizCaminos(){
+	for(int i = 0; i < numNodos; i++){
+		for(int j = 0; j < numNodos; j++){
+			if(i==j){
+				matrizCaminos[i][j] = 0;
+			} else{
+				matrizCaminos[i][j] = INF;
+			}
+		}
+	}
+}
+
 
 void Grafo::Floyd (){
 	copiarMatrizAdyacencia();
+	iniciarMatrizCaminos();
 	for (int k=0; k<numNodos; k++){
 		for (int i=0; i<numNodos; i++){
 			for(int j=0; j<numNodos; j++){
-				if(matrizAdyacenciaFloyd[i][j]> (matrizAdyacenciaFloyd[i][k]+matrizAdyacenciaFloyd[k][j])){
+				if((matrizAdyacenciaFloyd[i][k]+matrizAdyacenciaFloyd[k][j]) < matrizAdyacenciaFloyd[i][j]){
 					matrizAdyacenciaFloyd[i][j]=matrizAdyacenciaFloyd[i][k]+matrizAdyacenciaFloyd[k][j];
-					matrizAdyacenciaFloyd[i][j]=k;
+					matrizCaminos[i][j]=k;
 				}
 			}
 		}
+	}
+}
+
+void Grafo::caminoFloyd(int posOrigen, int posDestino, ofstream &salidaDatos){
+	int k;
+	k=matrizCaminos[posOrigen][posDestino];
+	if(k!=0){
+		caminoFloyd(posOrigen, k, salidaDatos);
+		salidaDatos<<cjtoVertices[k]<<" ";
+		caminoFloyd(k, posDestino, salidaDatos);
 	}
 }
 

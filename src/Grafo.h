@@ -29,6 +29,8 @@ class Grafo {
 
 	float matrizAdyacenciaFloyd[MAX][MAX]; //Matriz de Floyd
 
+	int matrizCaminos[MAX][MAX]; //Matriz de caminos utilizadas en Floyd
+
 	int numNodos;					//Numero de nodos insertados en el grafo
 
 	int numArcos;					//Numero de vertices insertados en el grafo
@@ -120,6 +122,11 @@ public:
 
 	void copiarMatrizAdyacencia();
 
+
+	void iniciarMatrizCaminos();
+
+
+	void caminoFloyd(int posOrigen, int posDestino, ofstream &salidaDatos);
 
 	//RecuperaCamino
 };
