@@ -51,8 +51,10 @@ void Grafo::cargarDatos(){
             getline(entradaDatos, ciudadInicio, ' ');
             getline(entradaDatos, ciudadFin, ' ');
             getline(entradaDatos, linea, '\n');
+			
+			
             if(this -> insertarArcos(ciudadInicio, ciudadFin, stof(linea))) cout << "Bien";
-			else cout << "No inserta: " << ciudadInicio << ciudadFin << endl;
+			else cout << "No inserta: " << ciudadInicio << "----" <<ciudadFin << "." << endl;
         }
 
 		cout << numAristas;
@@ -74,14 +76,10 @@ void Grafo::cargarDatos(){
 bool Grafo::pertenece(string vertice, int &posicion){
 	bool encontrado = false;
 	int indice = 0;
-
-	cout << vertice << numNodos << endl;
 	
 	while(indice < numNodos && !encontrado){
-		
-		if(this -> cjtoVertices[indice] == vertice){
+		if(cjtoVertices[indice] == vertice){
 			posicion = indice;
-			cout << posicion;
 			encontrado = true;
 		} else indice++;
 	}
@@ -145,7 +143,7 @@ void Grafo::borrar(string vertice){
 void Grafo::verVertices(){
 	cout << numNodos << endl;
 	for (int i=0; i < numNodos; i++){
-		cout << cjtoVertices[i] << endl;
+		cout << cjtoVertices[i] << "             " << endl;
 	}
 }
 
