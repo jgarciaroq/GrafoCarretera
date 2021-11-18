@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-/Debug/*.out
-/Debug/
-=======
 /Debug/
 *.out
 *.cproject
->>>>>>> refs/remotes/origin/master
