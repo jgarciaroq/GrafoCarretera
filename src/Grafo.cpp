@@ -14,23 +14,20 @@ using namespace std;
 
 //Constructor
 Grafo::Grafo(){
+	//Iniciamos el grafo con 0 vertices y aristas.
 	numNodos = 0;
 	numArcos = 0;
 	
+	//Establecer a 0 el cjtoVertices.
 	for(int i = 0; i < MAX; i++){
 		cjtoVertices[i] = "\0";
 	}
 
+	//Iniciar matrizAdyacencia a Infinito.
 	inicializarMatriz(matrizAdyacencia);
+
+	//Cargar datos del fichero y realizar la petición de caminos.
 	cargarDatos();
-
-	for(int i = 0; i < numNodos; i++){
-		for(int j = 0; j < numNodos; j++){
-			matrizFloyd[i][j] = matrizAdyacencia[i][j];
-		}
-	}
-
-	inicializarMatriz(matrizCaminos);
 }
 
 void Grafo::cargarDatos(){
@@ -92,7 +89,7 @@ void Grafo::prueba(){
 	cout << "-------------------------" << endl;
 	mostrarDatos(matrizFloyd);
 	cout << "-------------------------" << endl;
-	Floyd();
+	floyd();
 	mostrarDatos(matrizCaminos);
 	cout << "-------------------------" << endl;
 	mostrarDatos(matrizFloyd);
@@ -187,20 +184,29 @@ bool Grafo::insertarArcos(string inicio, string fin, float distancia){
 }
 
 void Grafo::copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]){
-	for(int i=0; i < numNodos; i++){
-		for(int j=0; i < numNodos; j++){
+	for(int i = 0; i < numNodos; i++)
+		for(int j = 0; j < numNodos; j++)
 			matriz2[i][j] = matriz1[i][j];
-		}
-	}
 }
 
-void Grafo::Floyd(){
-	for (int k=0; k<numNodos; k++){
-		for (int i=0; i<numNodos; i++){
-			for(int j=0; j<numNodos; j++){
-				if((matrizFloyd[i][k]+matrizFloyd[k][j]) < matrizFloyd[i][j]){
-					matrizFloyd[i][j]=matrizFloyd[i][k]+matrizFloyd[k][j];
-					matrizCaminos[i][j]=k;
+void Grafo::floyd(){
+	int distActual, distMinima;
+
+	//Iniciar MatrizFloyd con los datos de la de adyacencia.
+	copiarMatriz(matrizAdyacencia, matrizFloyd);
+
+	//Iniciar la matriz de caminos a infinito.
+	inicializarMatriz(matrizCaminos);
+
+	for(int k = 0; k < numNodos; k++){
+		for(int i = 0; i < numNodos; i++){
+			for(int j = 0; j < numNodos; j++){
+				distActual = matrizFloyd[i][k] + matrizFloyd[k][j];
+				distMinima = matrizFloyd[i][j];  
+				
+				if(distActual < distMinima){
+					matrizFloyd[i][j] = distActual;
+					matrizCaminos[i][j] = k;
 				}
 			}
 		}
@@ -209,21 +215,23 @@ void Grafo::Floyd(){
 
 void Grafo::caminoFloyd(int posOrigen, int posDestino){
 	int k;
-	k=matrizCaminos[posOrigen][posDestino];
-	if(k!=0){
+	k = matrizCaminos[posOrigen][posDestino];
+	if(k != INF){
 		caminoFloyd(posOrigen, k);
-		cout<<cjtoVertices[k]<<" ";
+		cout << cjtoVertices[k] << " ";
 		caminoFloyd(k, posDestino);
 	}
 }
 
-
 //Muestra el valor de cada arista.
 void Grafo::mostrarDatos(float matriz[MAX][MAX]){
 	for(int i = 0; i < numNodos; i++){
-		for(int j = 0; j < numNodos; j++){
-			if(matriz[i][j] != INF) cout << matriz[i][j] << " ";
-			else cout << "-- ";
+		for(int j = 0; j < numNodos; j++){	
+			if(matriz[i][j] != INF){
+				cout << matriz[i][j] << " ";	
+			} else{
+				cout << "-- ";
+			}
 		}
 		cout << endl;
 	}

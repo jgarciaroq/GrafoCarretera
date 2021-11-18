@@ -78,7 +78,7 @@ public:
 
 	bool pertenece(string vertice, int &posicion);
 	
-	void Floyd ();
+	void floyd();
 
 	void copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]);
 
