@@ -21,12 +21,11 @@ Grafo::Grafo(){
 }
 
 void Grafo::cargarDatos(){
-	bool leido = false;
-    int numNodos, numAristas;
+    int numNodos, numAristas, numCaminos;
     string linea, ciudadInicio, ciudadFin;
 
     ifstream entradaDatos;
-	entradaDatos.open(NOM_FICHERO, ios::in);
+	entradaDatos.open(FICHERO_ENT, ios::in);
 
     if(entradaDatos.is_open()){
         
@@ -56,13 +55,18 @@ void Grafo::cargarDatos(){
             this -> insertarArcos(ciudadInicio, ciudadFin, stof(linea));
         }
 
+		//Leer salto de linea en linea 9
+        getline(entradaDatos, linea, '\n');
+        
+        //Leer numero de aristas.
+        getline(entradaDatos, linea, '\n');
+        numCaminos = stoi(linea);
+
+
         entradaDatos.close();
-        leido = true;
     } else{
         cout << "Error: Fichero no encontrado.";
     }
-
-
 }
 
 bool Grafo::pertenece(string vertice, int &posicion){
@@ -153,4 +157,15 @@ bool Grafo::insertarArcos(string inicio, string fin, float distancia){
 	}
 
 	return insertado;
+}
+
+//Muestra el valor de cada arista.
+void Grafo::mostrarDatos(float matriz[MAX][MAX]){
+	for(int i = 0; i < numNodos; i++){
+		for(int j = 0; j < numNodos; j++){
+			if(matriz[i][j] != INF) std::cout << matriz[i][j] << " ";
+			else std::cout << "---- ";
+		}
+		std::cout << std::endl;
+	}
 }

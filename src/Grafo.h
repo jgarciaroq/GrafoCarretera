@@ -9,7 +9,8 @@
 #ifndef GRAFO_H_
 #define GRAFO_H_
 
-#define NOM_FICHERO "datos.in"
+#define FICHERO_ENT "datos.in"
+#define FICHERO_SAL "datos.out"
 
 #include <iostream>
 #include <fstream>
@@ -91,7 +92,7 @@ public:
 	 * POST: {Muestra la matriz que se indica como parámetro de entrada.
 	 * Complejidad: O(n^2)
 	 */
-	void MostrarDatos(float matriz[MAX][MAX]);
+	void mostrarDatos(float matriz[MAX][MAX]);
 
 	/**
 	 * @brief 
