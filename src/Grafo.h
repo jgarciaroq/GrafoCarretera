@@ -1,9 +1,11 @@
 /*
- * Grafo.h
+ *  Declaración del grafo y los métodos para cargar y volcar
+ *	datos.
  *
- *Indica el/los nombre/s del/los autor/es
- *  Juan Francisco Garcia Hinojosa
- *  Fernando Broncano
+ *	@author Fernando Broncano Morgado
+ *	@author Juan Francisco García Hinojosa
+ *  
+ *  @version 1.0
  */
 
 #ifndef GRAFO_H_
@@ -18,29 +20,20 @@
 
 using namespace std;
 
-static const int MAX = 20;    //Constante de valor 20, es de utilidad ya que se indica que como máximo tedremos 20 nodos.
+static const int MAX = 20;    		//Constante de valor 20, es de utilidad ya que se indica que como máximo tedremos 20 nodos.
 static const float INF = 9999.99;	//Constante infinito para inicializar la matriz
 
-class Grafo {
+class Grafo{
 
-	string cjtoVertices[MAX];    	//Conjunto de nodos que tendra nuestro grafo
-
-	float matrizAdyacencia[MAX][MAX];  //Conjunto de aristas que tendra nuestro grafo
-
-	float matrizFloyd[MAX][MAX]; //Matriz de Floyd
-
-	float matrizCaminos[MAX][MAX]; //Matriz de caminos utilizadas en Floyd
-
-	int numNodos;					//Numero de nodos insertados en el grafo
-
-	int numArcos;					//Numero de vertices insertados en el grafo
-
-	//********************************************************************************
-	//	De esta forma tienes lo imprescindible para un grafo; los vértices y las aristas.
-	//	Deberás añadir más matrices, si lo consideras necesario para resolver el ejercicio.
-	//	Son las matrices que resultan de aplicar los diferentes algoritmos que vayas necesitando.
-	//*********************************************************************************************************
-
+	string cjtoVertices[MAX];    		//Conjunto de nodos que tendra nuestro grafo
+	float matrizAdyacencia[MAX][MAX];	//Conjunto de aristas que tendra nuestro grafo
+	float matrizFloyd[MAX][MAX]; 		//Matriz de Floyd
+	float matrizCaminos[MAX][MAX]; 		//Matriz de caminos utilizadas en Floyd
+	float matrizPrim[MAX][MAX];			//Matriz del arbol de expansion mínimo
+	int numNodos;						//Numero de nodos insertados en el grafo
+	int numArcos;						//Numero de vertices insertados en el grafo
+	ofstream salidaDatos;
+	
 public:
 	/*
 	 * PRE: {Las estructuras del grafo han de estar correctamente definidas}
@@ -51,6 +44,8 @@ public:
 	 * Complejidad: O(n^2)
 	 */
 	Grafo();
+
+	Grafo(Grafo* other);
 
 	/*
 	 * PRE: {Las estructuras del grafo han de estar correctamente definidas e inicializadas}
@@ -72,7 +67,7 @@ public:
 
 	bool insertarArcos(string inicio, string fin, float distancia);
 
-	void verVertices ();
+	void mostrarVertices ();
 
 	void borrar(string vertice);
 
@@ -84,16 +79,16 @@ public:
 
 	void iniciarMatrizCaminos();
 
-	void caminoFloyd(int posInicio, int posFin, float &suma);
+	void caminoFloyd(int posInicio, int posFin);
 
 	void iniciarCaminos();
 
+	Grafo* prim();
+
 	void prueba();
-	//RecuperaCamino
+
+	~Grafo();
 };
 
 
 #endif /* GRAFO_H_ */
-
-
-
