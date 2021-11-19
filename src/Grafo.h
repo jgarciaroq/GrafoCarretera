@@ -84,7 +84,7 @@ public:
 
 	void iniciarMatrizCaminos();
 
-	void caminoFloyd(int posInicio, int posFin, float &suma);
+	void caminoFloyd(int posInicio, int posFin);
 
 	void iniciarCaminos();
 

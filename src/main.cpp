@@ -14,7 +14,7 @@ using namespace std;
 int main(){
 
 	Grafo* g = new Grafo();
-	//g -> prueba();
+	g -> prueba();
 	//g -> verVertices();
 	delete g;
 
