@@ -26,8 +26,25 @@ Grafo::Grafo(){
 	//Iniciar matrizAdyacencia a INF y diagonal principal a 0.
 	inicializarMatriz(matrizAdyacencia);
 
+	//Abrimos el fichero de salida.
+	salidaDatos.open(FICHERO_SAL);
+
 	//Cargar datos del fichero y realizar la petición de caminos.
 	cargarDatos();
+}
+
+Grafo::Grafo(Grafo* other){
+	//Iniciamos el grafo con 0 vertices y aristas.
+	numNodos = 0;
+	numArcos = 0;
+	
+	//Establecer a 0 el cjtoVertices.
+	for(int i = 0; i < MAX; i++){
+		cjtoVertices[i] = "\0";
+	}
+
+	//Iniciar matrizAdyacencia a INF y diagonal principal a 0.
+	inicializarMatriz(matrizAdyacencia);
 }
 
 void Grafo::cargarDatos(){
@@ -35,8 +52,11 @@ void Grafo::cargarDatos(){
     int inicio, fin;
     string linea, ciudadInicio, ciudadFin;
     ifstream entradaDatos;
+	Grafo* mst;
+	
 
 	entradaDatos.open(FICHERO_ENT, ios::in);
+	
 
     if(entradaDatos.is_open()){
         
@@ -111,11 +131,14 @@ void Grafo::cargarDatos(){
         	caminoFloyd(inicio, fin);
 
 			//Mostramos la distancia.
-        	cout << " " << matrizFloyd[inicio][fin] << endl;
+        	salidaDatos << " " << matrizFloyd[inicio][fin] << endl;
 
+			mst = prim();
+			mostrarDatos(mst -> matrizAdyacencia);
         }
 
         entradaDatos.close();
+		salidaDatos.close();
 
     } else{
         cout << "Error: Fichero no encontrado.";
@@ -263,10 +286,10 @@ void Grafo::caminoFloyd(int posInicio, int posFin){
 	int intermediario = matrizCaminos[posInicio][posFin];
 
 	if(posInicio != posFin){
-		cout << cjtoVertices[posInicio] << " ";
+		salidaDatos << cjtoVertices[posInicio] << " ";
 		caminoFloyd(intermediario, posFin);
 	} else{
-		cout << cjtoVertices[posFin];
+		salidaDatos << cjtoVertices[posFin];
 	}
 }
 
@@ -281,5 +304,49 @@ void Grafo::mostrarDatos(float matriz[MAX][MAX]){
 			}
 		}
 		cout << endl;
+	}
+}
+
+Grafo* Grafo::prim(){
+	Grafo* mst = new Grafo(this);
+	int indice = 0, nodoProcesar, indiceMinimo, aux;
+	bool encontrado = false;
+	float minimo;
+
+	while(indice < this -> numNodos && !encontrado){
+		if(cjtoVertices[indice] != "\0"){
+			mst -> insertarVertices(this -> cjtoVertices[indice]);
+			encontrado = true;
+		} else indice++;
+	}
+
+	while(mst -> numNodos < this -> numNodos){
+		encontrado = false;
+		nodoProcesar = mst -> numNodos - 1;
+		minimo = this -> matrizAdyacencia[nodoProcesar][0];
+		
+		for(int i = 1; i < this -> numNodos; i++){
+			if(this -> matrizAdyacencia[nodoProcesar][i] < minimo){
+				if(!mst -> pertenece(cjtoVertices[i], aux)){
+					minimo = matrizAdyacencia[nodoProcesar][i];
+					indiceMinimo = i;
+					encontrado = true;
+				}
+			}
+		}
+
+		if(encontrado){
+			mst -> insertarVertices(this -> cjtoVertices[indiceMinimo]);
+			cout << mst -> numNodos;
+			mst -> insertarArcos(this -> cjtoVertices[nodoProcesar], this -> cjtoVertices[indiceMinimo], minimo);
+		}
+	}
+
+	return mst;
+}
+
+Grafo::~Grafo(){
+	if(salidaDatos.is_open()){
+		salidaDatos.close();
 	}
 }

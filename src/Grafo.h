@@ -29,9 +29,11 @@ class Grafo{
 	float matrizAdyacencia[MAX][MAX];	//Conjunto de aristas que tendra nuestro grafo
 	float matrizFloyd[MAX][MAX]; 		//Matriz de Floyd
 	float matrizCaminos[MAX][MAX]; 		//Matriz de caminos utilizadas en Floyd
+	float matrizPrim[MAX][MAX];			//Matriz del arbol de expansion mínimo
 	int numNodos;						//Numero de nodos insertados en el grafo
 	int numArcos;						//Numero de vertices insertados en el grafo
-
+	ofstream salidaDatos;
+	
 public:
 	/*
 	 * PRE: {Las estructuras del grafo han de estar correctamente definidas}
@@ -42,6 +44,8 @@ public:
 	 * Complejidad: O(n^2)
 	 */
 	Grafo();
+
+	Grafo(Grafo* other);
 
 	/*
 	 * PRE: {Las estructuras del grafo han de estar correctamente definidas e inicializadas}
@@ -79,7 +83,11 @@ public:
 
 	void iniciarCaminos();
 
+	Grafo* prim();
+
 	void prueba();
+
+	~Grafo();
 };
 
 
