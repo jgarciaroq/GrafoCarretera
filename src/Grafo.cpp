@@ -79,6 +79,7 @@ void Grafo::cargarDatos(){
 
         floyd();
         mostrarDatos(matrizFloyd);
+        mostrarDatos(matrizCaminos);
         for (int i = 0; i < numCaminos; i++){
         	suma=0;
         	getline(entradaDatos, ciudadInicio, ' ');
