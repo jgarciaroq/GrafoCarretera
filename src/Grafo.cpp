@@ -114,8 +114,6 @@ void Grafo::prueba(){
 	cout << "-------------------------" << endl;
 	mostrarDatos(matrizFloyd);
 	cout << "-------------------------" << endl;
-
-
 }
 
 bool Grafo::pertenece(string vertice, int &posicion){
