@@ -135,7 +135,7 @@ void Grafo::cargarDatos(){
         }
 
 		mst = prim();
-		mst -> mostrarVertices();
+		mst -> mostrarDatos(mst -> matrizAdyacencia);
 
         entradaDatos.close();
 		salidaDatos.close();
@@ -309,35 +309,51 @@ void Grafo::mostrarDatos(float matriz[MAX][MAX]){
 
 Grafo* Grafo::prim(){
 	Grafo* mst = new Grafo(this);
-	int nodoProcesar, indiceMinimo, aux;
-	bool encontrado = false;
+	int nodoInicio, nodoFin, aux;
 	float minimo;
 
-	mst -> insertarVertice(this -> cjtoVertices[0]);
+    //Insertamos el primer vertice.
+	mst -> insertarVertice(this -> cjtoVertices[mst -> numNodos]);
 	
-
 	while(mst -> numNodos < this -> numNodos){
-		encontrado = false;
-		nodoProcesar = mst -> numNodos;
-		minimo = this -> matrizAdyacencia[nodoProcesar][0];
 		
-		for(int i = 1; i < this -> numNodos; i++){
-			if(this -> matrizAdyacencia[nodoProcesar][i] < minimo){
-				if(!mst -> pertenece(cjtoVertices[i], aux)){
-					minimo = matrizAdyacencia[nodoProcesar][i];
-					indiceMinimo = i;
-					encontrado = true;
+		for(int i = 0; i < this -> numNodos; i++){
+			for(int j = 0; j < this -> numNodos; j++){
+				if(this -> matrizAdyacencia[i][j] != INF && i != j){
+					if(mst -> pertenece(this -> cjtoVertices[i], aux) && 
+					   !mst -> pertenece(this -> cjtoVertices[j], aux)){
+						nodoInicio = i;
+						nodoFin = j;
+						minimo = this -> matrizAdyacencia[i][j];
+					}
 				}
 			}
 		}
 
-		if(encontrado){
-			mst -> insertarVertice(this -> cjtoVertices[indiceMinimo]);
-			cout << mst -> numNodos;
-			if(mst -> insertarArco(this -> cjtoVertices[nodoProcesar], this -> cjtoVertices[indiceMinimo], minimo)){
-				cout << "inserta" << endl;
-			};
+		for(int i = 0; i < this -> numNodos; i++){
+			for(int j = 0; j < this -> numNodos; j++){
+				if(this -> matrizAdyacencia[i][j] != INF && i != j){
+					if(mst -> pertenece(this -> cjtoVertices[i], aux) && 
+					   !mst -> pertenece(this -> cjtoVertices[j], aux)){
+						if(this -> matrizAdyacencia[i][j] < minimo){
+							nodoInicio = i;
+							nodoFin = j;
+							minimo = this -> matrizAdyacencia[i][j];
+						}
+					}
+				}
+			}
 		}
+
+
+		mst -> insertarVertice(this -> cjtoVertices[nodoFin]);
+		
+		if(mst -> insertarArco(this -> cjtoVertices[nodoInicio], this -> cjtoVertices[nodoFin], minimo)){
+			cout << "inserta" << endl;
+		} else{
+			cout << this -> cjtoVertices[nodoInicio] << this -> cjtoVertices[nodoFin] << minimo << endl;
+		}
+		
 	}
 
 	return mst;
