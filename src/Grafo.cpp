@@ -75,7 +75,7 @@ void Grafo::cargarDatos(){
 				linea.erase(linea.size() - 1);
 			}
 
-            this -> insertarVertices(linea);
+            this -> insertarVertice(linea);
         }
 
         //Leer salto de linea en linea 9.
@@ -92,7 +92,7 @@ void Grafo::cargarDatos(){
             getline(entradaDatos, linea, '\n');
 			
 			
-            if(!this -> insertarArcos(ciudadInicio, ciudadFin, stof(linea))){
+            if(!this -> insertarArco(ciudadInicio, ciudadFin, stof(linea))){
 				cout << "No inserta: " << ciudadInicio << " -- " <<ciudadFin << "." << endl;
 			} 
         }
@@ -132,10 +132,10 @@ void Grafo::cargarDatos(){
 
 			//Mostramos la distancia.
         	salidaDatos << " " << matrizFloyd[inicio][fin] << endl;
-
-			mst = prim();
-			mostrarDatos(mst -> matrizAdyacencia);
         }
+
+		mst = prim();
+		mst -> mostrarVertices();
 
         entradaDatos.close();
 		salidaDatos.close();
@@ -185,7 +185,7 @@ void Grafo::inicializarMatriz(float matriz[MAX][MAX]){
 }
 
 
-void Grafo::insertarVertices(string vertice){
+void Grafo::insertarVertice(string vertice){
 	int i = 0;
 	bool insertado = false;
 
@@ -227,7 +227,7 @@ void Grafo::mostrarVertices(){
 	}
 }
 
-bool Grafo::insertarArcos(string inicio, string fin, float distancia){
+bool Grafo::insertarArco(string inicio, string fin, float distancia){
 
 	bool insertado = false;
 	int posInicio, posFin;
@@ -309,20 +309,16 @@ void Grafo::mostrarDatos(float matriz[MAX][MAX]){
 
 Grafo* Grafo::prim(){
 	Grafo* mst = new Grafo(this);
-	int indice = 0, nodoProcesar, indiceMinimo, aux;
+	int nodoProcesar, indiceMinimo, aux;
 	bool encontrado = false;
 	float minimo;
 
-	while(indice < this -> numNodos && !encontrado){
-		if(cjtoVertices[indice] != "\0"){
-			mst -> insertarVertices(this -> cjtoVertices[indice]);
-			encontrado = true;
-		} else indice++;
-	}
+	mst -> insertarVertice(this -> cjtoVertices[0]);
+	
 
 	while(mst -> numNodos < this -> numNodos){
 		encontrado = false;
-		nodoProcesar = mst -> numNodos - 1;
+		nodoProcesar = mst -> numNodos;
 		minimo = this -> matrizAdyacencia[nodoProcesar][0];
 		
 		for(int i = 1; i < this -> numNodos; i++){
@@ -336,9 +332,11 @@ Grafo* Grafo::prim(){
 		}
 
 		if(encontrado){
-			mst -> insertarVertices(this -> cjtoVertices[indiceMinimo]);
+			mst -> insertarVertice(this -> cjtoVertices[indiceMinimo]);
 			cout << mst -> numNodos;
-			mst -> insertarArcos(this -> cjtoVertices[nodoProcesar], this -> cjtoVertices[indiceMinimo], minimo);
+			if(mst -> insertarArco(this -> cjtoVertices[nodoProcesar], this -> cjtoVertices[indiceMinimo], minimo)){
+				cout << "inserta" << endl;
+			};
 		}
 	}
 

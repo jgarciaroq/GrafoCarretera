@@ -29,7 +29,6 @@ class Grafo{
 	float matrizAdyacencia[MAX][MAX];	//Conjunto de aristas que tendra nuestro grafo
 	float matrizFloyd[MAX][MAX]; 		//Matriz de Floyd
 	float matrizCaminos[MAX][MAX]; 		//Matriz de caminos utilizadas en Floyd
-	float matrizPrim[MAX][MAX];			//Matriz del arbol de expansion mínimo
 	int numNodos;						//Numero de nodos insertados en el grafo
 	int numArcos;						//Numero de vertices insertados en el grafo
 	ofstream salidaDatos;
@@ -63,11 +62,11 @@ public:
 
 	void inicializarMatriz(float matriz[MAX][MAX]);
 
-	void insertarVertices(string vertice);
+	void insertarVertice(string vertice);
 
-	bool insertarArcos(string inicio, string fin, float distancia);
+	bool insertarArco(string inicio, string fin, float distancia);
 
-	void mostrarVertices ();
+	void mostrarVertices();
 
 	void borrar(string vertice);
 
