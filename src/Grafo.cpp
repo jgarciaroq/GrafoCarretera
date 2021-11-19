@@ -136,6 +136,7 @@ void Grafo::cargarDatos(){
 
 		mst = prim();
 		mst -> mostrarDatos(mst -> matrizAdyacencia);
+		mst -> mostrarVertices();
 
         entradaDatos.close();
 		salidaDatos.close();
