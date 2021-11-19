@@ -196,7 +196,21 @@ void Grafo::floyd(){
 	copiarMatriz(matrizAdyacencia, matrizFloyd);
 
 	//Iniciar la matriz de caminos a infinito.
-	inicializarMatriz(matrizCaminos);
+	//inicializarMatriz(matrizCaminos);
+
+	for(int i = 0; i < numNodos; i++){
+		for(int j = 0; j < numNodos; j++){
+			if(matrizAdyacencia[i][j] != INF){
+				matrizCaminos[i][j] = i;
+			} else{
+				matrizCaminos[i][j] = INF;
+			}
+		}
+	}
+
+	cout << endl << endl;
+	mostrarDatos(matrizCaminos);
+	cout << endl << endl;
 
 	for(int k = 0; k < numNodos; k++){
 		for(int i = 0; i < numNodos; i++){
@@ -213,13 +227,14 @@ void Grafo::floyd(){
 	}
 }
 
-void Grafo::caminoFloyd(int posOrigen, int posDestino){
-	int k;
-	k = matrizCaminos[posOrigen][posDestino];
-	if(k != INF){
-		caminoFloyd(posOrigen, k);
-		cout << cjtoVertices[k] << " ";
-		caminoFloyd(k, posDestino);
+void Grafo::caminoFloyd(int posInicio, int posFin){
+	if(posInicio == posFin){
+		cout << cjtoVertices[posInicio] << " ";
+	} else if(matrizCaminos[posInicio][posFin] == INF){
+		cout << "No hay camino.\n";
+	} else{
+		caminoFloyd(posInicio, matrizCaminos[posInicio][posFin]);
+		cout << cjtoVertices[posFin] << " ";
 	}
 }
 
