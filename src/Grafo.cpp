@@ -23,7 +23,7 @@ Grafo::Grafo(){
 		cjtoVertices[i] = "\0";
 	}
 
-	//Iniciar matrizAdyacencia a Infinito.
+	//Iniciar matrizAdyacencia a INF y diagonal principal a 0.
 	inicializarMatriz(matrizAdyacencia);
 
 	//Cargar datos del fichero y realizar la petición de caminos.
@@ -46,12 +46,19 @@ void Grafo::cargarDatos(){
 
         //Leer nombre de nodos e insertarlos.
         for(int i = 0; i < numNodos; i++){
-            getline(entradaDatos, linea, ' ');
-            this -> insertarVertices(linea);
+
 			getline(entradaDatos, linea, '\n');
+			
+			//Eliminamos el retorno de carro.
+			//Evitando problemas entre Linux y Windows.
+			if(linea[linea.size() - 1] == '\r'){
+				linea.erase(linea.size() - 1);
+			}
+
+            this -> insertarVertices(linea);
         }
 
-        //Leer salto de linea en linea 9
+        //Leer salto de linea en linea 9.
         getline(entradaDatos, linea, '\n');
         
         //Leer numero de aristas.
@@ -65,8 +72,9 @@ void Grafo::cargarDatos(){
             getline(entradaDatos, linea, '\n');
 			
 			
-            if(this -> insertarArcos(ciudadInicio, ciudadFin, stof(linea))) cout << "Bien" << endl;
-			else cout << "No inserta: " << ciudadInicio << "--" <<ciudadFin << "." << endl;
+            if(!this -> insertarArcos(ciudadInicio, ciudadFin, stof(linea))){
+				cout << "No inserta: " << ciudadInicio << " -- " <<ciudadFin << "." << endl;
+			} 
         }
 
 		//Leer salto de linea en linea 9
@@ -76,11 +84,13 @@ void Grafo::cargarDatos(){
         getline(entradaDatos, linea, '\n');
         numCaminos = stoi(linea);
 
+		//Completar matriz de Floyd
         floyd();
 
-        mostrarDatos(matrizFloyd);
+		//Mostrar matriz de Floyd.
+        //mostrarDatos(matrizFloyd);
 
-        for (int i = 0; i < numCaminos; i++){
+        for(int i = 0; i < numCaminos; i++){
 			//Coger primera palabra de la linea.
         	getline(entradaDatos, ciudadInicio, ' ');
         	
@@ -187,7 +197,7 @@ void Grafo::borrar(string vertice){
 	}
 }
 
-void Grafo::verVertices(){
+void Grafo::mostrarVertices(){
 	cout << numNodos << endl;
 	for (int i=0; i < numNodos; i++){
 		cout << cjtoVertices[i] << "   " << endl;
@@ -200,7 +210,7 @@ bool Grafo::insertarArcos(string inicio, string fin, float distancia){
 	int posInicio, posFin;
 
 	if(inicio != fin){
-		if(pertenece( inicio, posInicio) && pertenece(fin, posFin)){
+		if(pertenece(inicio, posInicio) && pertenece(fin, posFin)){
 			matrizAdyacencia[posInicio][posFin] = distancia;
 			matrizAdyacencia[posFin][posInicio] = distancia;
 			insertado = true;
@@ -223,8 +233,6 @@ void Grafo::floyd(){
 	copiarMatriz(matrizAdyacencia, matrizFloyd);
 
 	//Iniciar la matriz de caminos a infinito.
-	//inicializarMatriz(matrizCaminos);
-
 	for(int i = 0; i < numNodos; i++){
 		for(int j = 0; j < numNodos; j++){
 			if(matrizAdyacencia[i][j] != INF){
@@ -235,11 +243,7 @@ void Grafo::floyd(){
 		}
 	}
 
-
-	cout << endl << endl;
-	mostrarDatos(matrizCaminos);
-	cout << endl << endl;
-
+	//Realizacion del algortimo de floyd.
 	for(int k = 0; k < numNodos; k++){
 		for(int i = 0; i < numNodos; i++){
 			for(int j = 0; j < numNodos; j++){
@@ -256,11 +260,11 @@ void Grafo::floyd(){
 }
 
 void Grafo::caminoFloyd(int posInicio, int posFin){
-	int k = matrizCaminos[posInicio][posFin];
+	int intermediario = matrizCaminos[posInicio][posFin];
 
 	if(posInicio != posFin){
 		cout << cjtoVertices[posInicio] << " ";
-		caminoFloyd(k, posFin);
+		caminoFloyd(intermediario, posFin);
 	} else{
 		cout << cjtoVertices[posFin];
 	}
