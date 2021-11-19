@@ -92,7 +92,6 @@ void Grafo::cargarDatos(){
         	cout<<suma<<endl;
 
         }
-        mostrarDatos(matrizFloyd);
 
         entradaDatos.close();
 
@@ -251,10 +250,13 @@ void Grafo::caminoFloyd(int posInicio, int posFin, float &suma){
 	int k;
 	k=matrizCaminos[posInicio][posFin];
 	if(k!=posInicio){
-		suma=suma+matrizFloyd[posInicio][posFin];
 		caminoFloyd(posInicio,k, suma);
 		cout<<cjtoVertices[k]<< " ";
 		caminoFloyd(k,posFin, suma);
+		suma=matrizFloyd[posInicio][posFin];
+	}
+	else{
+		suma=matrizFloyd[posInicio][posFin];
 	}
 }
 
