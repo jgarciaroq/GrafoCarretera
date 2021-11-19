@@ -32,6 +32,8 @@ Grafo::Grafo(){
 
 void Grafo::cargarDatos(){
     int numNodos, numAristas, numCaminos;
+    int inicio, fin;
+    float suma;
     string linea, ciudadInicio, ciudadFin;
 
     ifstream entradaDatos;
@@ -75,9 +77,27 @@ void Grafo::cargarDatos(){
         getline(entradaDatos, linea, '\n');
         numCaminos = stoi(linea);
 
+        floyd();
+        mostrarDatos(matrizFloyd);
+        for (int i = 0; i < numCaminos; i++){
+        	suma=0;
+        	getline(entradaDatos, ciudadInicio, ' ');
+        	getline(entradaDatos, ciudadFin, '\n');
+
+        	pertenece(ciudadInicio,inicio);
+        	pertenece(ciudadFin,fin);
+        	cout<<ciudadInicio<< " ";
+        	caminoFloyd(inicio, fin, suma);
+        	cout<<ciudadFin<< " ";
+        	cout<<suma<<endl;
+
+        }
+        mostrarDatos(matrizFloyd);
+
         entradaDatos.close();
 
-		mostrarDatos(matrizAdyacencia);
+		//mostrarDatos(matrizAdyacencia);
+
     } else{
         cout << "Error: Fichero no encontrado.";
     }
@@ -95,7 +115,7 @@ void Grafo::prueba(){
 	mostrarDatos(matrizFloyd);
 	cout << "-------------------------" << endl;
 
-	caminoFloyd(4,6);
+
 }
 
 bool Grafo::pertenece(string vertice, int &posicion){
@@ -190,7 +210,7 @@ void Grafo::copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]){
 }
 
 void Grafo::floyd(){
-	int distActual, distMinima;
+	float distActual, distMinima;
 
 	//Iniciar MatrizFloyd con los datos de la de adyacencia.
 	copiarMatriz(matrizAdyacencia, matrizFloyd);
@@ -208,9 +228,9 @@ void Grafo::floyd(){
 		}
 	}
 
-	cout << endl << endl;
+	/*cout << endl << endl;
 	mostrarDatos(matrizCaminos);
-	cout << endl << endl;
+	cout << endl << endl;*/
 
 	for(int k = 0; k < numNodos; k++){
 		for(int i = 0; i < numNodos; i++){
@@ -227,14 +247,14 @@ void Grafo::floyd(){
 	}
 }
 
-void Grafo::caminoFloyd(int posInicio, int posFin){
-	if(posInicio == posFin){
-		cout << cjtoVertices[posInicio] << " ";
-	} else if(matrizCaminos[posInicio][posFin] == INF){
-		cout << "No hay camino.\n";
-	} else{
-		caminoFloyd(posInicio, matrizCaminos[posInicio][posFin]);
-		cout << cjtoVertices[posFin] << " ";
+void Grafo::caminoFloyd(int posInicio, int posFin, float &suma){
+	int k;
+	k=matrizCaminos[posInicio][posFin];
+	if(k!=posInicio){
+		suma=suma+matrizFloyd[posInicio][posFin];
+		caminoFloyd(posInicio,k, suma);
+		cout<<cjtoVertices[k]<< " ";
+		caminoFloyd(k,posFin, suma);
 	}
 }
 
