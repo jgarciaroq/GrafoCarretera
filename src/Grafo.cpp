@@ -106,19 +106,18 @@ void Grafo::cargarDatos(){
 
 		//Completar matriz de Floyd
         floyd();
-<<<<<<< HEAD
+
         mostrarDatos(matrizFloyd);
         mostrarDatos(matrizCaminos);
         for (int i = 0; i < numCaminos; i++){
-        	suma=0;
-=======
+        	int suma=0;
 
 		//Mostrar matriz de Floyd.
         //mostrarDatos(matrizFloyd);
 
         for(int i = 0; i < numCaminos; i++){
 			//Coger primera palabra de la linea.
->>>>>>> refs/remotes/origin/master
+
         	getline(entradaDatos, ciudadInicio, ' ');
         	
 			//Coger segunda palabra de la linea 
@@ -147,7 +146,8 @@ void Grafo::cargarDatos(){
         entradaDatos.close();
 		salidaDatos.close();
 
-    } else{
+    }
+    }else{
         cout << "Error: Fichero no encontrado.";
     }
 
