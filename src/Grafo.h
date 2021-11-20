@@ -11,9 +11,6 @@
 #ifndef GRAFO_H_
 #define GRAFO_H_
 
-#define FICHERO_ENT "Datos2.in"
-#define FICHERO_SAL "datos2.out"
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -21,17 +18,16 @@
 using namespace std;
 
 static const int MAX = 20;    		//Constante de valor 20, es de utilidad ya que se indica que como máximo tedremos 20 nodos.
-static const double INF = 9999.99;	//Constante infinito para inicializar la matriz
+static const float INF = 9999.99;	//Constante infinito para inicializar la matriz
 
 class Grafo{
 
 	string cjtoVertices[MAX];    		//Conjunto de nodos que tendra nuestro grafo
-	double matrizAdyacencia[MAX][MAX];	//Conjunto de aristas que tendra nuestro grafo
-	double matrizFloyd[MAX][MAX]; 		//Matriz de Floyd
-	double matrizCaminos[MAX][MAX]; 		//Matriz de caminos utilizadas en Floyd
+	float matrizAdyacencia[MAX][MAX];	//Conjunto de aristas que tendra nuestro grafo
+	float matrizFloyd[MAX][MAX]; 		//Matriz de Floyd
+	float matrizCaminos[MAX][MAX]; 	    //Matriz de caminos utilizadas en Floyd
 	int numNodos;						//Numero de nodos insertados en el grafo
 	int numArcos;						//Numero de vertices insertados en el grafo
-	ofstream salidaDatos;
 	
 public:
 	/*
@@ -43,8 +39,6 @@ public:
 	 * Complejidad: O(n^2)
 	 */
 	Grafo();
-
-	Grafo(Grafo* other);
 
 	/*
 	 * PRE: {Las estructuras del grafo han de estar correctamente definidas e inicializadas}
@@ -58,23 +52,25 @@ public:
 	 * POST: {Muestra la matriz que se indica como parámetro de entrada.
 	 * Complejidad: O(n^2)
 	 */
-	void mostrarDatos(double matriz[MAX][MAX]);
+	void mostrarDatos(float matriz[MAX][MAX]);
 
-	void inicializarMatriz(double matriz[MAX][MAX]);
+	void inicializarMatriz(float matriz[MAX][MAX]);
 
 	void insertarVertice(string vertice);
 
-	bool insertarArco(string inicio, string fin, double distancia);
+	bool insertarArco(string inicio, string fin, float distancia);
 
 	void mostrarVertices();
 
 	void borrar(string vertice);
 
-	bool pertenece(string vertice, int &posicion);
+	bool pertenece(string vertice);
+	
+	int posicion(string vertice);
 	
 	void floyd();
 
-	void copiarMatriz(double matriz1[MAX][MAX], double matriz2[MAX][MAX]);
+	void copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]);
 
 	void iniciarMatrizCaminos();
 
@@ -84,13 +80,11 @@ public:
 
 	void iniciarCaminos();
 
-	Grafo* prim();
+	void prim(Grafo* mst);
 
-	double sumaMatriz();
+	float sumaDistancia();
 
-	double getDistancia(string inicio, string fin);
-
-	void prueba();
+	float getDistancia(string inicio, string fin);
 
 	~Grafo();
 };

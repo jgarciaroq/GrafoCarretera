@@ -1,10 +1,12 @@
-//============================================================================
-// Name        : GrafosCarretera.cpp
-// Author      : Juanfra
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
-//============================================================================
+/*
+ *  Implementación de los metodos que se encargan
+ *  de cargar los datos del fichero y volcarlos.
+ *
+ *	@author Fernando Broncano Morgado
+ *	@author Juan Francisco García Hinojosa
+ *  
+ *  @version 1.0
+ */
 
 #include <iostream>
 #include <fstream>
@@ -12,13 +14,12 @@
 #include "Grafo.h"
 #include "Cola.h"
 
-
-#define FICHERO_ENT "datos.in"
+#define FICHERO_ENT "Datos2.in"
 #define FICHERO_SAL "datos2.out"
 
 using namespace std;
 
-//Metood para cargar los datos en el grafo
+//Metodo para cargar los datos en el grafo
 //y guardar los caminos a resolver.
 bool cargarDatos(Grafo* grafo, Cola* cola){
 	bool cargado;
@@ -26,7 +27,6 @@ bool cargarDatos(Grafo* grafo, Cola* cola){
     string linea, ciudadInicio, ciudadFin;
     ifstream entradaDatos;
 	
-
 	entradaDatos.open(FICHERO_ENT, ios::in);
 	
     if(entradaDatos.is_open()){
@@ -61,7 +61,6 @@ bool cargarDatos(Grafo* grafo, Cola* cola){
             getline(entradaDatos, ciudadInicio, ' ');
             getline(entradaDatos, ciudadFin, ' ');
             getline(entradaDatos, linea, '\n');
-			
 			
             if(!grafo -> insertarArco(ciudadInicio, ciudadFin, stof(linea))){
 				cout << "No inserta: " << ciudadInicio << " -- " <<ciudadFin << "." << endl;
@@ -129,9 +128,9 @@ void ejecutar(Grafo* grafo, Grafo* mst, Cola* cola){
 	}
 
 	salidaDatos << endl;
-	mst = grafo -> prim();
+	grafo -> prim(mst);
 	mst -> floyd();
-	salidaDatos << mst -> sumaMatriz() << endl;
+	salidaDatos << mst -> sumaDistancia() << endl;
 
 	while(!aux -> estaVacia()){
 		ciudadInicio = aux -> primero();
@@ -145,38 +144,22 @@ void ejecutar(Grafo* grafo, Grafo* mst, Cola* cola){
 	}
 
 	salidaDatos.close();
+	delete aux;
 }
 
 int main(){
 
-	//ejecutar();
-	//Grafo* g = new Grafo();
-	//g -> prueba();
-	//g -> verVertices();
-	//delete g;
-
-	/*Cola* cola = new Cola();
-
-	cola -> insertarNodo("Badajoz");
-	cola -> insertarNodo("Caceres");
-	cola -> insertarNodo("Sevilla");
-
-	cola -> mostrar();
-
-	cola -> desencolar();
-	cola -> desencolar(); 
-	cola -> desencolar();
-
-	cola -> mostrar(); */
-////////////////////////////////////
-
-	Grafo* grafo = new Grafo();
-	Grafo* mst;
-	Cola* cola = new Cola();
+	Grafo* grafo = new Grafo(); //Grafo para almacenar los datos
+	Grafo* mst = new Grafo();   //Grafo para almacenar el mst
+	Cola* cola = new Cola();	//Cola para almacenar las peticiones
 
 	if(cargarDatos(grafo, cola)){
 		ejecutar(grafo, mst, cola);
 	}
+
+	delete cola;
+	delete mst;
+	delete grafo;
 
 	return 0;
 }
