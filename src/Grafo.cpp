@@ -50,6 +50,7 @@ Grafo::Grafo(Grafo* other){
 void Grafo::cargarDatos(){
     int numNodos, numAristas, numCaminos;
     int inicio, fin;
+	double suma;
     string linea, ciudadInicio, ciudadFin;
     ifstream entradaDatos;
 	Grafo* mst;
@@ -108,7 +109,7 @@ void Grafo::cargarDatos(){
         floyd();
 
 		//Mostrar matriz de Floyd.
-        //mostrarDatos(matrizFloyd);
+        mostrarDatos(matrizCaminos);
 
         for(int i = 0; i < numCaminos; i++){
 			//Coger primera palabra de la linea.
@@ -128,18 +129,32 @@ void Grafo::cargarDatos(){
         	pertenece(ciudadFin, fin);
 
 			//Buscar el camino desde el inicio al fin.
-        	caminoFloyd(inicio, fin);
+        	salidaDatos << caminoFloyd(inicio, fin);
 
 			//Mostramos la distancia.
         	salidaDatos << " " << matrizFloyd[inicio][fin] << endl;
         }
 
+		
 		mst = prim();
-		mst -> mostrarDatos(mst -> matrizAdyacencia);
-		mst -> mostrarVertices();
+		for(int i = 0; i < mst -> numNodos; i++){
+			for(int j = i; j < mst -> numNodos; j++){
+				if(mst -> matrizAdyacencia[i][j] != INF)
+					suma = suma + mst -> matrizAdyacencia[i][j];
+			}
+		}
+
+		salidaDatos << to_string(suma) << endl;
+		cout << suma << endl;
+		mst -> floyd();
+
+		salidaDatos << mst -> caminoFloyd(0, 5) << " " << mst -> matrizFloyd[0][5] << endl;
+		salidaDatos << mst -> caminoFloyd(2, 6) << " " << mst -> matrizFloyd[2][6] << endl;
+		salidaDatos << mst -> caminoFloyd(5, 3) << " " << mst -> matrizFloyd[5][3] << endl;
+        salidaDatos << mst -> caminoFloyd(6, 1) << " " << mst -> matrizFloyd[6][1] << endl;
 
         entradaDatos.close();
-		salidaDatos.close();
+		salidaDatos.close();	
 
     } else{
         cout << "Error: Fichero no encontrado.";
@@ -173,7 +188,7 @@ bool Grafo::pertenece(string vertice, int &posicion){
 	return encontrado;
 }
 
-void Grafo::inicializarMatriz(float matriz[MAX][MAX]){
+void Grafo::inicializarMatriz(double matriz[MAX][MAX]){
 	for(int i = 0; i < MAX; i++){
 		for(int j = 0; j < MAX; j++){
 			if(i==j){
@@ -228,7 +243,7 @@ void Grafo::mostrarVertices(){
 	}
 }
 
-bool Grafo::insertarArco(string inicio, string fin, float distancia){
+bool Grafo::insertarArco(string inicio, string fin, double distancia){
 
 	bool insertado = false;
 	int posInicio, posFin;
@@ -244,15 +259,13 @@ bool Grafo::insertarArco(string inicio, string fin, float distancia){
 	return insertado;
 }
 
-void Grafo::copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]){
+void Grafo::copiarMatriz(double matriz1[MAX][MAX], double matriz2[MAX][MAX]){
 	for(int i = 0; i < numNodos; i++)
 		for(int j = 0; j < numNodos; j++)
 			matriz2[i][j] = matriz1[i][j];
 }
 
 void Grafo::floyd(){
-	float distActual, distMinima;
-
 	//Iniciar MatrizFloyd con los datos de la de adyacencia.
 	copiarMatriz(matrizAdyacencia, matrizFloyd);
 
@@ -270,32 +283,28 @@ void Grafo::floyd(){
 	//Realizacion del algortimo de floyd.
 	for(int k = 0; k < numNodos; k++){
 		for(int i = 0; i < numNodos; i++){
-			for(int j = 0; j < numNodos; j++){
-				distActual = matrizFloyd[i][k] + matrizFloyd[k][j];
-				distMinima = matrizFloyd[i][j];  
-				
-				if(distActual < distMinima){
-					matrizFloyd[i][j] = distActual;
-					matrizCaminos[i][j] = k;
+			for(int j = 0; j < numNodos; j++){	
+				if(matrizFloyd[i][k] + matrizFloyd[k][j] < matrizFloyd[i][j]){
+					matrizFloyd[i][j] = matrizFloyd[i][k] + matrizFloyd[k][j];
+					matrizCaminos[i][j] = matrizCaminos[i][k];
 				}
 			}
 		}
 	}
 }
 
-void Grafo::caminoFloyd(int posInicio, int posFin){
+string Grafo::caminoFloyd(int posInicio, int posFin){
 	int intermediario = matrizCaminos[posInicio][posFin];
 
 	if(posInicio != posFin){
-		salidaDatos << cjtoVertices[posInicio] << " ";
-		caminoFloyd(intermediario, posFin);
+		return cjtoVertices[posInicio] + " " + caminoFloyd(intermediario, posFin);
 	} else{
-		salidaDatos << cjtoVertices[posFin];
+		return cjtoVertices[posFin];
 	}
 }
 
 //Muestra el valor de cada arista.
-void Grafo::mostrarDatos(float matriz[MAX][MAX]){
+void Grafo::mostrarDatos(double matriz[MAX][MAX]){
 	for(int i = 0; i < numNodos; i++){
 		for(int j = 0; j < numNodos; j++){	
 			if(matriz[i][j] != INF){

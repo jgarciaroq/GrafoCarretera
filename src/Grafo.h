@@ -21,14 +21,14 @@
 using namespace std;
 
 static const int MAX = 20;    		//Constante de valor 20, es de utilidad ya que se indica que como máximo tedremos 20 nodos.
-static const float INF = 9999.99;	//Constante infinito para inicializar la matriz
+static const double INF = 9999.99;	//Constante infinito para inicializar la matriz
 
 class Grafo{
 
 	string cjtoVertices[MAX];    		//Conjunto de nodos que tendra nuestro grafo
-	float matrizAdyacencia[MAX][MAX];	//Conjunto de aristas que tendra nuestro grafo
-	float matrizFloyd[MAX][MAX]; 		//Matriz de Floyd
-	float matrizCaminos[MAX][MAX]; 		//Matriz de caminos utilizadas en Floyd
+	double matrizAdyacencia[MAX][MAX];	//Conjunto de aristas que tendra nuestro grafo
+	double matrizFloyd[MAX][MAX]; 		//Matriz de Floyd
+	double matrizCaminos[MAX][MAX]; 		//Matriz de caminos utilizadas en Floyd
 	int numNodos;						//Numero de nodos insertados en el grafo
 	int numArcos;						//Numero de vertices insertados en el grafo
 	ofstream salidaDatos;
@@ -58,13 +58,13 @@ public:
 	 * POST: {Muestra la matriz que se indica como parámetro de entrada.
 	 * Complejidad: O(n^2)
 	 */
-	void mostrarDatos(float matriz[MAX][MAX]);
+	void mostrarDatos(double matriz[MAX][MAX]);
 
-	void inicializarMatriz(float matriz[MAX][MAX]);
+	void inicializarMatriz(double matriz[MAX][MAX]);
 
 	void insertarVertice(string vertice);
 
-	bool insertarArco(string inicio, string fin, float distancia);
+	bool insertarArco(string inicio, string fin, double distancia);
 
 	void mostrarVertices();
 
@@ -74,11 +74,11 @@ public:
 	
 	void floyd();
 
-	void copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]);
+	void copiarMatriz(double matriz1[MAX][MAX], double matriz2[MAX][MAX]);
 
 	void iniciarMatrizCaminos();
 
-	void caminoFloyd(int posInicio, int posFin);
+	string caminoFloyd(int posInicio, int posFin);
 
 	void iniciarCaminos();
 
