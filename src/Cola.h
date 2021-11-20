@@ -72,6 +72,10 @@ class Cola{
 			Nodo* aux = inicio;
 			inicio = inicio -> getSiguiente();
 			delete aux;
+
+			if(inicio == NULL){
+				fin = NULL;
+			}
 		}
 	}
 

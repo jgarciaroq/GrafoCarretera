@@ -27,10 +27,10 @@ Grafo::Grafo(){
 	inicializarMatriz(matrizAdyacencia);
 
 	//Abrimos el fichero de salida.
-	salidaDatos.open(FICHERO_SAL);
+	//salidaDatos.open(FICHERO_SAL);
 
 	//Cargar datos del fichero y realizar la petición de caminos.
-	cargarDatos();
+	//cargarDatos();
 }
 
 Grafo::Grafo(Grafo* other){
@@ -293,6 +293,13 @@ void Grafo::floyd(){
 	}
 }
 
+string Grafo::caminoFloyd(string inicio, string fin){
+	int posInicio, posFin;
+	pertenece(inicio, posInicio);
+	pertenece(fin, posFin);
+	return caminoFloyd(posInicio, posFin);
+}
+
 string Grafo::caminoFloyd(int posInicio, int posFin){
 	int intermediario = matrizCaminos[posInicio][posFin];
 
@@ -369,8 +376,23 @@ Grafo* Grafo::prim(){
 	return mst;
 }
 
+double Grafo::sumaMatriz(){
+	double suma = 0;
+	
+	for(int i = 0; i < numNodos; i++)
+		for(int j = i; j < numNodos; j++)
+			if(matrizAdyacencia[i][j] != INF)
+				suma += matrizAdyacencia[i][j];
+	
+	return suma;
+}
+
+double Grafo::getDistancia(string inicio, string fin){
+	int posInicio, posFin;
+	pertenece(inicio, posInicio);
+	pertenece(fin, posFin);
+	return matrizFloyd[posInicio][posFin];
+}
+
 Grafo::~Grafo(){
-	if(salidaDatos.is_open()){
-		salidaDatos.close();
-	}
 }

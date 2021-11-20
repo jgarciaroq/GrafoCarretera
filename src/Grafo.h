@@ -78,11 +78,17 @@ public:
 
 	void iniciarMatrizCaminos();
 
+	string caminoFloyd(string inicio, string fin);
+
 	string caminoFloyd(int posInicio, int posFin);
 
 	void iniciarCaminos();
 
 	Grafo* prim();
+
+	double sumaMatriz();
+
+	double getDistancia(string inicio, string fin);
 
 	void prueba();
 

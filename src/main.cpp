@@ -6,11 +6,14 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
+#include <iostream>
+#include <fstream>
+
 #include "Grafo.h"
 #include "Cola.h"
-#include <iostream>
 
-#define FICHERO_ENT "Datos2.in"
+
+#define FICHERO_ENT "datos.in"
 #define FICHERO_SAL "datos2.out"
 
 using namespace std;
@@ -23,8 +26,6 @@ bool cargarDatos(Grafo* grafo, Cola* cola){
     string linea, ciudadInicio, ciudadFin;
     ifstream entradaDatos;
 	
-	grafo = new Grafo();
-	cola = new Cola();
 
 	entradaDatos.open(FICHERO_ENT, ios::in);
 	
@@ -106,8 +107,44 @@ bool cargarDatos(Grafo* grafo, Cola* cola){
 }
 
 
-void ejecutar(Grafo* grafo, Cola* cola){
-	
+void ejecutar(Grafo* grafo, Grafo* mst, Cola* cola){
+	string ciudadInicio, ciudadFin;
+	ofstream salidaDatos;
+	Cola* aux = new Cola();
+
+	salidaDatos.open(FICHERO_SAL);
+
+	grafo -> floyd();
+	while(!cola -> estaVacia()){
+		ciudadInicio = cola -> primero();
+		aux -> insertarNodo(ciudadInicio);
+		cola -> desencolar();
+
+		ciudadFin = cola -> primero();
+		aux -> insertarNodo(ciudadFin);
+		cola -> desencolar();
+
+		salidaDatos << grafo -> caminoFloyd(ciudadInicio, ciudadFin) << " ";
+		salidaDatos << grafo -> getDistancia(ciudadInicio, ciudadFin) << endl;
+	}
+
+	salidaDatos << endl;
+	mst = grafo -> prim();
+	mst -> floyd();
+	salidaDatos << mst -> sumaMatriz() << endl;
+
+	while(!aux -> estaVacia()){
+		ciudadInicio = aux -> primero();
+		aux -> desencolar();
+
+		ciudadFin = aux -> primero();
+		aux -> desencolar();
+
+		salidaDatos << mst -> caminoFloyd(ciudadInicio, ciudadFin) << " ";
+		salidaDatos << mst -> getDistancia(ciudadInicio, ciudadFin) << endl;
+	}
+
+	salidaDatos.close();
 }
 
 int main(){
@@ -133,11 +170,12 @@ int main(){
 	cola -> mostrar(); */
 ////////////////////////////////////
 
-	Grafo* grafo;
-	Cola* cola;
+	Grafo* grafo = new Grafo();
+	Grafo* mst;
+	Cola* cola = new Cola();
 
 	if(cargarDatos(grafo, cola)){
-		ejecutar(grafo, cola);
+		ejecutar(grafo, mst, cola);
 	}
 
 	return 0;
