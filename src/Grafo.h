@@ -11,8 +11,8 @@
 #ifndef GRAFO_H_
 #define GRAFO_H_
 
-#define FICHERO_ENT "datos.in"
-#define FICHERO_SAL "datos.out"
+#define FICHERO_ENT "Datos2.in"
+#define FICHERO_SAL "datos2.out"
 
 #include <iostream>
 #include <fstream>
