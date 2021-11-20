@@ -14,7 +14,7 @@ using namespace std;
 
 //Constructor
 Grafo::Grafo(){
-	//Iniciamos el grafo con 0 vertices y aristas.
+	//Iniciamos el grafo con 0 vertices y 0 aristas.
 	numNodos = 0;
 	numArcos = 0;
 	
@@ -24,7 +24,15 @@ Grafo::Grafo(){
 	}
 
 	//Iniciar matrizAdyacencia a INF y diagonal principal a 0.
-	inicializarMatriz(matrizAdyacencia);
+	for(int i = 0; i < MAX; i++){
+		for(int j = 0; j < MAX; j++){
+			if(i==j){
+				matrizAdyacencia[i][j] = 0;
+			} else{
+				matrizAdyacencia[i][j] = INF;
+			}
+		}
+	}
 }
 
 bool Grafo::pertenece(string vertice){
@@ -53,18 +61,6 @@ int Grafo::posicion(string vertice){
 	return indice;
 }
 
-void Grafo::inicializarMatriz(float matriz[MAX][MAX]){
-	for(int i = 0; i < MAX; i++){
-		for(int j = 0; j < MAX; j++){
-			if(i==j){
-				matriz[i][j] = 0;
-			} else{
-				matriz[i][j] = INF;
-			}
-		}
-	}
-}
-
 void Grafo::insertarVertice(string vertice){
 	int i = 0;
 	bool insertado = false;
@@ -76,34 +72,6 @@ void Grafo::insertarVertice(string vertice){
 			numNodos++;
 			insertado = true;
 		} else i++;
-	}
-}
-
-void Grafo::borrar(string vertice){
-	bool borrado = false;
-	int i = 0;
-
-	while(!borrado && i < MAX){
-		if(cjtoVertices[i] == vertice){
-			cjtoVertices[i] = "\0";
-
-			for(int j = 0; j < MAX; j++){	
-				if(i != j){
-					matrizAdyacencia[i][j] = INF;
-				} else{
-					matrizAdyacencia[i][j] = 0;
-				}
-			}
-
-			borrado = true;
-		} else i++;
-	}
-}
-
-void Grafo::mostrarVertices(){
-	cout << numNodos << endl;
-	for (int i=0; i < numNodos; i++){
-		cout << cjtoVertices[i] << "   " << endl;
 	}
 }
 
@@ -126,10 +94,25 @@ bool Grafo::insertarArco(string inicio, string fin, float distancia){
 	return insertado;
 }
 
-void Grafo::copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]){
-	for(int i = 0; i < numNodos; i++)
-		for(int j = 0; j < numNodos; j++)
-			matriz2[i][j] = matriz1[i][j];
+void Grafo::borrar(string vertice){
+	bool borrado = false;
+	int i = 0;
+
+	while(!borrado && i < MAX){
+		if(cjtoVertices[i] == vertice){
+			cjtoVertices[i] = "\0";
+
+			for(int j = 0; j < MAX; j++){	
+				if(i != j){
+					matrizAdyacencia[i][j] = INF;
+				} else{
+					matrizAdyacencia[i][j] = 0;
+				}
+			}
+
+			borrado = true;
+		} else i++;
+	}
 }
 
 void Grafo::floyd(){
@@ -188,6 +171,13 @@ void Grafo::mostrarDatos(float matriz[MAX][MAX]){
 	}
 }
 
+void Grafo::copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]){
+	for(int i = 0; i < numNodos; i++)
+		for(int j = 0; j < numNodos; j++)
+			matriz2[i][j] = matriz1[i][j];
+}
+
+
 void Grafo::prim(Grafo* mst){
 	int nodoInicio, nodoFin;
 	float minimo;
@@ -243,7 +233,4 @@ float Grafo::sumaDistancia(){
 
 float Grafo::getDistancia(string inicio, string fin){
 	return matrizFloyd[posicion(inicio)][posicion(fin)];
-}
-
-Grafo::~Grafo(){
 }

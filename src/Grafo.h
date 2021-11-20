@@ -41,11 +41,67 @@ public:
 	Grafo();
 
 	/*
-	 * PRE: {Las estructuras del grafo han de estar correctamente definidas e inicializadas}
-	 * POST: {Abrimos un flujo de lectura del fichero "Datos.in" y cargamos las diferentes estructuras del Grafo a partir de los datos}
-	 * Complejidad: O(n)
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
 	 */
-	void cargarDatos();
+	bool pertenece(string vertice);
+	
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	int posicion(string vertice);
+
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	void insertarVertice(string vertice);
+
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	bool insertarArco(string inicio, string fin, float distancia);
+
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	void borrar(string vertice);
+
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	void copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]);
+
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	void floyd();
+	
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	string caminoFloyd(string inicio, string fin);
+
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	string caminoFloyd(int posInicio, int posFin);
 
 	/*
 	 * PRE: {La estructuras del grafo han de estar correctamente definidas, inicializadas y cargadas}
@@ -54,39 +110,33 @@ public:
 	 */
 	void mostrarDatos(float matriz[MAX][MAX]);
 
-	void inicializarMatriz(float matriz[MAX][MAX]);
-
-	void insertarVertice(string vertice);
-
-	bool insertarArco(string inicio, string fin, float distancia);
-
-	void mostrarVertices();
-
-	void borrar(string vertice);
-
-	bool pertenece(string vertice);
-	
-	int posicion(string vertice);
-	
-	void floyd();
-
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
 	void copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]);
 
-	void iniciarMatrizCaminos();
-
-	string caminoFloyd(string inicio, string fin);
-
-	string caminoFloyd(int posInicio, int posFin);
-
-	void iniciarCaminos();
-
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
 	void prim(Grafo* mst);
 
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
 	float sumaDistancia();
 
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
 	float getDistancia(string inicio, string fin);
-
-	~Grafo();
 };
 
 

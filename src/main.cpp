@@ -21,6 +21,11 @@ using namespace std;
 
 //Metodo para cargar los datos en el grafo
 //y guardar los caminos a resolver.
+/*
+ * PRE: {}
+ * POST: {}
+ * Complejidad: O()
+ */
 bool cargarDatos(Grafo* grafo, Cola* cola){
 	bool cargado;
 	int numNodos, numAristas, numCaminos;
@@ -105,7 +110,11 @@ bool cargarDatos(Grafo* grafo, Cola* cola){
 	return cargado;
 }
 
-
+/*
+ * PRE: {}
+ * POST: {}
+ * Complejidad: O()
+ */
 void ejecutar(Grafo* grafo, Grafo* mst, Cola* cola){
 	string ciudadInicio, ciudadFin;
 	ofstream salidaDatos;
