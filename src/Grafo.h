@@ -11,9 +11,6 @@
 #ifndef GRAFO_H_
 #define GRAFO_H_
 
-#define FICHERO_ENT "datos.in"
-#define FICHERO_SAL "datos.out"
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -28,10 +25,9 @@ class Grafo{
 	string cjtoVertices[MAX];    		//Conjunto de nodos que tendra nuestro grafo
 	float matrizAdyacencia[MAX][MAX];	//Conjunto de aristas que tendra nuestro grafo
 	float matrizFloyd[MAX][MAX]; 		//Matriz de Floyd
-	float matrizCaminos[MAX][MAX]; 		//Matriz de caminos utilizadas en Floyd
+	float matrizCaminos[MAX][MAX]; 	    //Matriz de caminos utilizadas en Floyd
 	int numNodos;						//Numero de nodos insertados en el grafo
 	int numArcos;						//Numero de vertices insertados en el grafo
-	ofstream salidaDatos;
 	
 public:
 	/*
@@ -44,14 +40,68 @@ public:
 	 */
 	Grafo();
 
-	Grafo(Grafo* other);
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	bool pertenece(string vertice);
+	
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	int posicion(string vertice);
 
 	/*
-	 * PRE: {Las estructuras del grafo han de estar correctamente definidas e inicializadas}
-	 * POST: {Abrimos un flujo de lectura del fichero "Datos.in" y cargamos las diferentes estructuras del Grafo a partir de los datos}
-	 * Complejidad: O(n)
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
 	 */
-	void cargarDatos();
+	void insertarVertice(string vertice);
+
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	bool insertarArco(string inicio, string fin, float distancia);
+
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	void borrar(string vertice);
+
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	void copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]);
+
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	void floyd();
+	
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	string caminoFloyd(string inicio, string fin);
+
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	string caminoFloyd(int posInicio, int posFin);
 
 	/*
 	 * PRE: {La estructuras del grafo han de estar correctamente definidas, inicializadas y cargadas}
@@ -60,33 +110,33 @@ public:
 	 */
 	void mostrarDatos(float matriz[MAX][MAX]);
 
-	void inicializarMatriz(float matriz[MAX][MAX]);
-
-	void insertarVertice(string vertice);
-
-	bool insertarArco(string inicio, string fin, float distancia);
-
-	void mostrarVertices();
-
-	void borrar(string vertice);
-
-	bool pertenece(string vertice, int &posicion);
-	
-	void floyd();
-
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
 	void copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]);
 
-	void iniciarMatrizCaminos();
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	void prim(Grafo* mst);
 
-	void caminoFloyd(int posInicio, int posFin);
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	float sumaDistancia();
 
-	void iniciarCaminos();
-
-	Grafo* prim();
-
-	void prueba();
-
-	~Grafo();
+	/*
+	 * PRE: {}
+	 * POST: {}
+	 * Complejidad: O()
+	 */
+	float getDistancia(string inicio, string fin);
 };
 
 

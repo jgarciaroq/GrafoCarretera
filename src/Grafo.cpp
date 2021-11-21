@@ -14,7 +14,7 @@ using namespace std;
 
 //Constructor
 Grafo::Grafo(){
-	//Iniciamos el grafo con 0 vertices y aristas.
+	//Iniciamos el grafo con 0 vertices y 0 aristas.
 	numNodos = 0;
 	numArcos = 0;
 	
@@ -24,22 +24,8 @@ Grafo::Grafo(){
 	}
 
 	//Iniciar matrizAdyacencia a INF y diagonal principal a 0.
-	inicializarMatriz(matrizAdyacencia);
-
-	//Abrimos el fichero de salida.
-	salidaDatos.open(FICHERO_SAL);
-
-	//Cargar datos del fichero y realizar la petición de caminos.
-	cargarDatos();
-}
-
-Grafo::Grafo(Grafo* other){
-	//Iniciamos el grafo con 0 vertices y aristas.
-	numNodos = 0;
-	numArcos = 0;
-	
-	//Establecer a 0 el cjtoVertices.
 	for(int i = 0; i < MAX; i++){
+<<<<<<< HEAD
 		cjtoVertices[i] = "\0";
 	}
 
@@ -163,15 +149,24 @@ void Grafo::prueba(){
 	cout << "-------------------------" << endl;
 	mostrarDatos(matrizFloyd);
 	cout << "-------------------------" << endl;
+=======
+		for(int j = 0; j < MAX; j++){
+			if(i==j){
+				matrizAdyacencia[i][j] = 0;
+			} else{
+				matrizAdyacencia[i][j] = INF;
+			}
+		}
+	}
+>>>>>>> refs/remotes/origin/master
 }
 
-bool Grafo::pertenece(string vertice, int &posicion){
+bool Grafo::pertenece(string vertice){
 	bool encontrado = false;
 	int indice = 0;
 	
 	while(indice < numNodos && !encontrado){
 		if(cjtoVertices[indice] == vertice){
-			posicion = indice;
 			encontrado = true;
 		} else indice++;
 	}
@@ -179,18 +174,18 @@ bool Grafo::pertenece(string vertice, int &posicion){
 	return encontrado;
 }
 
-void Grafo::inicializarMatriz(float matriz[MAX][MAX]){
-	for(int i = 0; i < MAX; i++){
-		for(int j = 0; j < MAX; j++){
-			if(i==j){
-				matriz[i][j] = 0;
-			} else{
-				matriz[i][j] = INF;
-			}
-		}
+int Grafo::posicion(string vertice){
+	bool encontrado = false;
+	int indice = 0;
+	
+	while(indice < numNodos && !encontrado){
+		if(cjtoVertices[indice] == vertice){
+			encontrado = true;
+		} else indice++;
 	}
-}
 
+	return indice;
+}
 
 void Grafo::insertarVertice(string vertice){
 	int i = 0;
@@ -204,6 +199,25 @@ void Grafo::insertarVertice(string vertice){
 			insertado = true;
 		} else i++;
 	}
+}
+
+bool Grafo::insertarArco(string inicio, string fin, float distancia){
+	bool insertado = false;
+	int posInicio, posFin;
+
+	if(inicio != fin){
+		if(pertenece(inicio) && pertenece(fin)){
+			posInicio = posicion(inicio);
+			posFin = posicion(fin);
+
+			matrizAdyacencia[posInicio][posFin] = distancia;
+			matrizAdyacencia[posFin][posInicio] = distancia;
+
+			insertado = true;
+		}
+	}
+
+	return insertado;
 }
 
 void Grafo::borrar(string vertice){
@@ -227,38 +241,7 @@ void Grafo::borrar(string vertice){
 	}
 }
 
-void Grafo::mostrarVertices(){
-	cout << numNodos << endl;
-	for (int i=0; i < numNodos; i++){
-		cout << cjtoVertices[i] << "   " << endl;
-	}
-}
-
-bool Grafo::insertarArco(string inicio, string fin, float distancia){
-
-	bool insertado = false;
-	int posInicio, posFin;
-
-	if(inicio != fin){
-		if(pertenece(inicio, posInicio) && pertenece(fin, posFin)){
-			matrizAdyacencia[posInicio][posFin] = distancia;
-			matrizAdyacencia[posFin][posInicio] = distancia;
-			insertado = true;
-		}
-	}
-
-	return insertado;
-}
-
-void Grafo::copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]){
-	for(int i = 0; i < numNodos; i++)
-		for(int j = 0; j < numNodos; j++)
-			matriz2[i][j] = matriz1[i][j];
-}
-
 void Grafo::floyd(){
-	float distActual, distMinima;
-
 	//Iniciar MatrizFloyd con los datos de la de adyacencia.
 	copiarMatriz(matrizAdyacencia, matrizFloyd);
 
@@ -276,27 +259,27 @@ void Grafo::floyd(){
 	//Realizacion del algortimo de floyd.
 	for(int k = 0; k < numNodos; k++){
 		for(int i = 0; i < numNodos; i++){
-			for(int j = 0; j < numNodos; j++){
-				distActual = matrizFloyd[i][k] + matrizFloyd[k][j];
-				distMinima = matrizFloyd[i][j];  
-				
-				if(distActual < distMinima){
-					matrizFloyd[i][j] = distActual;
-					matrizCaminos[i][j] = k;
+			for(int j = 0; j < numNodos; j++){	
+				if(matrizFloyd[i][k] + matrizFloyd[k][j] < matrizFloyd[i][j]){
+					matrizFloyd[i][j] = matrizFloyd[i][k] + matrizFloyd[k][j];
+					matrizCaminos[i][j] = matrizCaminos[i][k];
 				}
 			}
 		}
 	}
 }
 
-void Grafo::caminoFloyd(int posInicio, int posFin){
+string Grafo::caminoFloyd(string inicio, string fin){
+	return caminoFloyd(posicion(inicio), posicion(fin));
+}
+
+string Grafo::caminoFloyd(int posInicio, int posFin){
 	int intermediario = matrizCaminos[posInicio][posFin];
 
 	if(posInicio != posFin){
-		salidaDatos << cjtoVertices[posInicio] << " ";
-		caminoFloyd(intermediario, posFin);
+		return cjtoVertices[posInicio] + " " + caminoFloyd(intermediario, posFin);
 	} else{
-		salidaDatos << cjtoVertices[posFin];
+		return cjtoVertices[posFin];
 	}
 }
 
@@ -314,9 +297,15 @@ void Grafo::mostrarDatos(float matriz[MAX][MAX]){
 	}
 }
 
-Grafo* Grafo::prim(){
-	Grafo* mst = new Grafo(this);
-	int nodoInicio, nodoFin, aux;
+void Grafo::copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]){
+	for(int i = 0; i < numNodos; i++)
+		for(int j = 0; j < numNodos; j++)
+			matriz2[i][j] = matriz1[i][j];
+}
+
+
+void Grafo::prim(Grafo* mst){
+	int nodoInicio, nodoFin;
 	float minimo;
 
     //Insertamos el primer vertice.
@@ -327,8 +316,8 @@ Grafo* Grafo::prim(){
 		for(int i = 0; i < this -> numNodos; i++){
 			for(int j = 0; j < this -> numNodos; j++){
 				if(this -> matrizAdyacencia[i][j] != INF && i != j){
-					if(mst -> pertenece(this -> cjtoVertices[i], aux) && 
-					   !mst -> pertenece(this -> cjtoVertices[j], aux)){
+					if(mst -> pertenece(this -> cjtoVertices[i]) && 
+					   !mst -> pertenece(this -> cjtoVertices[j])){
 						nodoInicio = i;
 						nodoFin = j;
 						minimo = this -> matrizAdyacencia[i][j];
@@ -340,8 +329,8 @@ Grafo* Grafo::prim(){
 		for(int i = 0; i < this -> numNodos; i++){
 			for(int j = 0; j < this -> numNodos; j++){
 				if(this -> matrizAdyacencia[i][j] != INF && i != j){
-					if(mst -> pertenece(this -> cjtoVertices[i], aux) && 
-					   !mst -> pertenece(this -> cjtoVertices[j], aux)){
+					if(mst -> pertenece(this -> cjtoVertices[i]) && 
+					   !mst -> pertenece(this -> cjtoVertices[j])){
 						if(this -> matrizAdyacencia[i][j] < minimo){
 							nodoInicio = i;
 							nodoFin = j;
@@ -352,22 +341,30 @@ Grafo* Grafo::prim(){
 			}
 		}
 
-
 		mst -> insertarVertice(this -> cjtoVertices[nodoFin]);
-		
-		if(mst -> insertarArco(this -> cjtoVertices[nodoInicio], this -> cjtoVertices[nodoFin], minimo)){
-			cout << "inserta" << endl;
-		} else{
-			cout << this -> cjtoVertices[nodoInicio] << this -> cjtoVertices[nodoFin] << minimo << endl;
-		}
-		
+		mst -> insertarArco(this -> cjtoVertices[nodoInicio], this -> cjtoVertices[nodoFin], minimo);
 	}
-
-	return mst;
 }
 
+float Grafo::sumaDistancia(){
+	float suma = 0;
+	
+	for(int i = 0; i < numNodos; i++)
+		for(int j = i; j < numNodos; j++)
+			if(matrizAdyacencia[i][j] != INF)
+				suma += matrizAdyacencia[i][j];
+	
+	return suma;
+}
+
+<<<<<<< HEAD
 Grafo::~Grafo(){
 	if(salidaDatos.is_open()){
 		salidaDatos.close();
 	}
 }
+=======
+float Grafo::getDistancia(string inicio, string fin){
+	return matrizFloyd[posicion(inicio)][posicion(fin)];
+}
+>>>>>>> refs/remotes/origin/master
