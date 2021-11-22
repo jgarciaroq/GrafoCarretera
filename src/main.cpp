@@ -14,8 +14,8 @@
 #include "Grafo.h"
 #include "Cola.h"
 
-#define FICHERO_ENT "datos.in"
-#define FICHERO_SAL "datos.out"
+#define FICHERO_ENT "datos_1.in"
+#define FICHERO_SAL "datos_1.out"
 
 using namespace std;
 
