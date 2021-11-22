@@ -186,19 +186,7 @@ void Grafo::prim(Grafo* mst){
 	mst -> insertarVertice(this -> cjtoVertices[mst -> numNodos]);
 	
 	while(mst -> numNodos < this -> numNodos){
-		
-		for(int i = 0; i < this -> numNodos; i++){
-			for(int j = 0; j < this -> numNodos; j++){
-				if(this -> matrizAdyacencia[i][j] != INF && i != j){
-					if(mst -> pertenece(this -> cjtoVertices[i]) && 
-					   !mst -> pertenece(this -> cjtoVertices[j])){
-						nodoInicio = i;
-						nodoFin = j;
-						minimo = this -> matrizAdyacencia[i][j];
-					}
-				}
-			}
-		}
+		minimo = INF;
 
 		for(int i = 0; i < this -> numNodos; i++){
 			for(int j = 0; j < this -> numNodos; j++){

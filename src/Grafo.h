@@ -80,7 +80,7 @@ public:
 	/*
 	 * PRE: {El vértice debe existir dentro del cjtoVertices}
 	 * POST: {Borra un vértice del cjtoVertices y cambia la matrizAdyacencia poniendo que no existen caminos para ese vértice}
-	 * Complejidad: O(n^2)
+	 * Complejidad: O(n)
 	 */
 	void borrar(string vertice);
 
@@ -118,7 +118,7 @@ public:
 	 * PRE: {mst debe estar correctamente inicializado}
 	 * POST: {-Insertamos el primer vértice del grafo cjtoVertices en mst cjtoVertices
 	 * 		  -Se calcula el camino mínimo abarcando la mayor cantidad de vértices sin formar un ciclo}
-	 * Complejidad: O(n^3)
+	 * Complejidad: O(n^3) con n = numNodos 
 	 */
 	void prim(Grafo* mst);
 

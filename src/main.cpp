@@ -19,13 +19,11 @@
 
 using namespace std;
 
-//Metodo para cargar los datos en el grafo
-//y guardar los caminos a resolver.
 /*
- * PRE: {grafo y cola deben estar correctamente inicializado}
+ * PRE: {grafo y cola deben estar correctamente inicializados}
  * POST: {-En el grafo se insertan los vértices dentro de cjtoVertices
  * 		  -En el grafo se insertan los arcos dentro de matrizAdyacencia
- * 		  -En la cola se insertan los vértices}
+ * 		  -En la cola se insertan las peticiones del usuario}
  * Complejidad: O(n)
  */
 bool cargarDatos(Grafo* grafo, Cola* cola){
