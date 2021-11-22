@@ -115,13 +115,6 @@ public:
 	 * POST: {}
 	 * Complejidad: O()
 	 */
-	void copiarMatriz(float matriz1[MAX][MAX], float matriz2[MAX][MAX]);
-
-	/*
-	 * PRE: {}
-	 * POST: {}
-	 * Complejidad: O()
-	 */
 	void prim(Grafo* mst);
 
 	/*
