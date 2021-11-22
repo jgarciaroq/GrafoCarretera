@@ -25,131 +25,6 @@ Grafo::Grafo(){
 
 	//Iniciar matrizAdyacencia a INF y diagonal principal a 0.
 	for(int i = 0; i < MAX; i++){
-<<<<<<< HEAD
-		cjtoVertices[i] = "\0";
-	}
-
-	//Iniciar matrizAdyacencia a INF y diagonal principal a 0.
-	inicializarMatriz(matrizAdyacencia);
-}
-
-void Grafo::cargarDatos(){
-    int numNodos, numAristas, numCaminos;
-    int inicio, fin;
-    string linea, ciudadInicio, ciudadFin;
-    ifstream entradaDatos;
-	Grafo* mst;
-	
-
-	entradaDatos.open(FICHERO_ENT, ios::in);
-	
-
-    if(entradaDatos.is_open()){
-        
-        //Leer numero de nodos.
-        getline(entradaDatos, linea, '\n');
-        numNodos = stoi(linea);
-
-        //Leer nombre de nodos e insertarlos.
-        for(int i = 0; i < numNodos; i++){
-
-			getline(entradaDatos, linea, '\n');
-			
-			//Eliminamos el retorno de carro.
-			//Evitando problemas entre Linux y Windows.
-			if(linea[linea.size() - 1] == '\r'){
-				linea.erase(linea.size() - 1);
-			}
-
-            this -> insertarVertice(linea);
-        }
-
-        //Leer salto de linea en linea 9.
-        getline(entradaDatos, linea, '\n');
-        
-        //Leer numero de aristas.
-        getline(entradaDatos, linea, '\n');
-        numAristas = stoi(linea);
-
-        //Leer las aristas e insertarlas en el grafo.
-        for(int i = 0; i < numAristas; i++){
-            getline(entradaDatos, ciudadInicio, ' ');
-            getline(entradaDatos, ciudadFin, ' ');
-            getline(entradaDatos, linea, '\n');
-			
-			
-            if(!this -> insertarArco(ciudadInicio, ciudadFin, stof(linea))){
-				cout << "No inserta: " << ciudadInicio << " -- " <<ciudadFin << "." << endl;
-			} 
-        }
-
-		//Leer salto de linea en linea 9
-        getline(entradaDatos, linea, '\n');
-        
-        //Leer numero de aristas.
-        getline(entradaDatos, linea, '\n');
-        numCaminos = stoi(linea);
-
-		//Completar matriz de Floyd
-        floyd();
-
-        mostrarDatos(matrizFloyd);
-        mostrarDatos(matrizCaminos);
-        for (int i = 0; i < numCaminos; i++){
-        	int suma=0;
-
-		//Mostrar matriz de Floyd.
-        //mostrarDatos(matrizFloyd);
-
-        for(int i = 0; i < numCaminos; i++){
-			//Coger primera palabra de la linea.
-
-        	getline(entradaDatos, ciudadInicio, ' ');
-        	
-			//Coger segunda palabra de la linea 
-			getline(entradaDatos, ciudadFin, '\n');
-			
-			//Eliminamos el retorno de carro.
-			//Evitando problemas entre Linux y Windows.
-			if(ciudadFin[ciudadFin.size() - 1] == '\r'){
-				ciudadFin.erase(ciudadFin.size() - 1);
-			}
-
-			//Encontrar la posicion de las ciudades en el conjunto de vertices.
-        	pertenece(ciudadInicio, inicio);
-        	pertenece(ciudadFin, fin);
-
-			//Buscar el camino desde el inicio al fin.
-        	caminoFloyd(inicio, fin);
-
-			//Mostramos la distancia.
-        	salidaDatos << " " << matrizFloyd[inicio][fin] << endl;
-        }
-
-		mst = prim();
-		mst -> mostrarDatos(mst -> matrizAdyacencia);
-
-        entradaDatos.close();
-		salidaDatos.close();
-
-    }
-    }else{
-        cout << "Error: Fichero no encontrado.";
-    }
-
-}
-
-void Grafo::prueba(){
-	mostrarDatos(matrizCaminos);
-	cout << "-------------------------" << endl;
-	mostrarDatos(matrizFloyd);
-	cout << "-------------------------" << endl;
-	floyd();
-	mostrarDatos(matrizCaminos);
-	cout << "-------------------------" << endl;
-	mostrarDatos(matrizFloyd);
-	cout << "-------------------------" << endl;
-=======
 		for(int j = 0; j < MAX; j++){
 			if(i==j){
 				matrizAdyacencia[i][j] = 0;
@@ -158,7 +33,6 @@ void Grafo::prueba(){
 			}
 		}
 	}
->>>>>>> refs/remotes/origin/master
 }
 
 bool Grafo::pertenece(string vertice){
@@ -357,14 +231,6 @@ float Grafo::sumaDistancia(){
 	return suma;
 }
 
-<<<<<<< HEAD
-Grafo::~Grafo(){
-	if(salidaDatos.is_open()){
-		salidaDatos.close();
-	}
-}
-=======
 float Grafo::getDistancia(string inicio, string fin){
 	return matrizFloyd[posicion(inicio)][posicion(fin)];
 }
->>>>>>> refs/remotes/origin/master

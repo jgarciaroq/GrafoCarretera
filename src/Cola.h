@@ -29,8 +29,8 @@ class Cola{
 
 		/*
 		 * PRE: {}
- 		 * POST: {}
- 		 * Complejidad: O()
+ 		 * POST: {Se formará un nodo con la cadena pasada por parámetro}
+ 		 * Complejidad: O(1)
  		 */
 		Nodo(string palabra){
 			this -> palabra = palabra;
@@ -39,8 +39,8 @@ class Cola{
 
 		/*
 		 * PRE: {}
- 		 * POST: {}
- 		 * Complejidad: O()
+ 		 * POST: {Devuelve la cadena contenida en un nodo}
+ 		 * Complejidad: O(1)
  		 */
 		string getPalabra(){
 			return this -> palabra;
@@ -48,8 +48,8 @@ class Cola{
 
 		/*
 		 * PRE: {}
- 		 * POST: {}
- 		 * Complejidad: O()
+ 		 * POST: {El puntero siguiente apuntará a otro nodo}
+ 		 * Complejidad: O(1)
  		 */
 		void setSiguiente(Nodo* siguiente){
 			this -> siguiente = siguiente;
@@ -57,8 +57,8 @@ class Cola{
 
 		/*
 		 * PRE: {}
- 		 * POST: {}
- 		 * Complejidad: O()
+ 		 * POST: {Devuelve el nodo apuntado por siguiente}
+ 		 * Complejidad: O(1)
  		 */
 		Nodo* getSiguiente(){
 			return this -> siguiente;
@@ -72,8 +72,8 @@ class Cola{
 
 	/*
 	 * PRE: {}
-	 * POST: {}
-	 * Complejidad: O()
+	 * POST: {Inicializa la cola con el puntero inicio y fin apuntando a null}
+	 * Complejidad: O(1)
 	 */
 	Cola(){
 		inicio = NULL;
@@ -81,9 +81,9 @@ class Cola{
 	}
 
 	/*
-	 * PRE: {}
-	 * POST: {}
-	 * Complejidad: O()
+	 * PRE: {La cola debe estar correctamente inicializada}
+	 * POST: {Inserta un nodo dentro de la cola}
+	 * Complejidad: O(1)
 	 */
 	void insertarNodo(string palabra){
 		Nodo* aux = new Nodo(palabra);
@@ -98,18 +98,19 @@ class Cola{
 	}
 
 	/*
-	 * PRE: {}
-	 * POST: {}
-	 * Complejidad: O()
+	 * PRE: {La cola debe estar correctamente inicializada}
+	 * POST: {-Devuelve true si la cola esta vacía
+	 * 		  -Devuelve false en caso contrario}
+	 * Complejidad: O(1)
 	 */
 	bool estaVacia(){
 		return inicio == NULL && fin == NULL;
 	}
 
 	/*
-	 * PRE: {}
-	 * POST: {}
-	 * Complejidad: O()
+	 * PRE: {La cola debe estar correctamente inicializada}
+	 * POST: {Devuelve la cadena del primer nodo de la cola}
+	 * Complejidad: O(1)
 	 */
 	string primero(){
 		if(!estaVacia()){
@@ -120,9 +121,9 @@ class Cola{
 	}
 
 	/*
-	 * PRE: {}
-	 * POST: {}
-	 * Complejidad: O()
+	 * PRE: {La cola debe estar correctamente inicializada}
+	 * POST: {Borra el primer nodo de la cola}
+	 * Complejidad: O(1)
 	 */
 	void desencolar(){
 		if(!estaVacia()){
@@ -137,9 +138,9 @@ class Cola{
 	}
 
 	/*
-	 * PRE: {}
-	 * POST: {}
-	 * Complejidad: O()
+	 * PRE: {La cola debe estar correctamente inicializada}
+	 * POST: {Muestra la cadena de cada nodo de la cola}
+	 * Complejidad: O(n)
 	 */
 	void mostrar(){
 		Nodo* aux = inicio;

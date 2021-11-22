@@ -22,9 +22,11 @@ using namespace std;
 //Metodo para cargar los datos en el grafo
 //y guardar los caminos a resolver.
 /*
- * PRE: {}
- * POST: {}
- * Complejidad: O()
+ * PRE: {grafo y cola deben estar correctamente inicializado}
+ * POST: {-En el grafo se insertan los vértices dentro de cjtoVertices
+ * 		  -En el grafo se insertan los arcos dentro de matrizAdyacencia
+ * 		  -En la cola se insertan los vértices}
+ * Complejidad: O(n)
  */
 bool cargarDatos(Grafo* grafo, Cola* cola){
 	bool cargado;
@@ -111,9 +113,12 @@ bool cargarDatos(Grafo* grafo, Cola* cola){
 }
 
 /*
- * PRE: {}
- * POST: {}
- * Complejidad: O()
+ * PRE:  {grafo, mst y cola deben estar correctamente inicializados}
+ * POST: {-Vuelca en el fichero de salida el camino mínimo entre una ciudad origen y otra ciudad destino
+ * 		  -Vuelca en el fichero de salida la cantidad de kilómetros de carretera que ahn de arreglarse
+ * 		  -Vuelca en el fichero de salida el camino mínimo abarcando la mayor cantidad de vértices posibles
+ * 		  -La cola queda vacía}
+ * Complejidad: O(n)
  */
 void ejecutar(Grafo* grafo, Grafo* mst, Cola* cola){
 	string ciudadInicio, ciudadFin;
